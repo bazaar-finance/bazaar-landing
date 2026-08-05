@@ -37,7 +37,7 @@ Double-clicking `index.html` also works; fonts and live prices just need a conne
 
 ## Deploy
 
-Cloudflare Pages, connected to this repo — pushing to `main` publishes to
+Cloudflare Pages, connected to this repo — pushing to `master` publishes to
 <https://bazaar.finance>. There is no build step, so the project settings are:
 
 | Setting | Value |
