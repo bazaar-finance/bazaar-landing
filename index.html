@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bazaar — Trade anything. Anytime. Without permission.</title>
+  <meta name="description" content="A fully decentralized, immutable, governance-free perpetual futures protocol. Any asset, any time, no permission needed." />
+  <link rel="icon" type="image/png" href="assets/bazaar-logo-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Set theme before first paint to avoid a flash -->
+  <script>
+    try {
+      var t = localStorage.getItem('bazaar-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+
+  <!-- ===================== Nav ===================== -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="#top" aria-label="Bazaar home" class="nav__brand">
+        <img data-logo="dark" class="nav__logo" src="assets/bazaar-logo-yellow.png" alt="Bazaar" />
+        <img data-logo="light" class="nav__logo" src="assets/bazaar-logo-new.png" alt="Bazaar" />
+      </a>
+      <div class="nav__links">
+        <a href="https://docs.bazaar.finance" target="_top" rel="noopener" class="nav__link">Docs</a>
+        <a href="https://github.com/bazaar-finance/bazaar" target="_top" rel="noopener" class="nav__link">GitHub</a>
+        <a href="#waitlist" class="btn-get">Get access</a>
+        <button id="themeToggle" class="btn-toggle" type="button" aria-label="Toggle color theme">☀️</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== Hero ===================== -->
+  <section id="top" class="hero">
+    <div class="hero__center">
+      <div class="hero__content">
+        <div class="badge">
+          <span class="badge__dot"></span>
+          In development
+        </div>
+        <h1 class="hero__title">
+          Trade anything, anytime, <br />
+          <span class="hero__glitch-wrap">
+            <span class="glitch" id="glitchBox">
+              <span class="glitch__base">without permission.</span>
+              <video class="glitch__video" id="glitchVideo" src="assets/snek.mp4" muted playsinline preload="auto"></video>
+              <span class="glitch__layers" aria-hidden="true">
+                <span class="glitch__layer glitch__layer--a">without permission.</span>
+                <span class="glitch__layer glitch__layer--b">without permission.</span>
+                <span class="glitch__layer glitch__layer--r">without permission.</span>
+                <span class="glitch__layer glitch__layer--c">without permission.</span>
+                <span class="glitch__glow"></span>
+              </span>
+            </span>
+          </span>
+        </h1>
+        <div class="hero__cta">
+          <a href="#what-is-bazaar" class="btn-primary hoverable">What is Bazaar?</a>
+          <a href="https://docs.bazaar.finance" target="_top" rel="noopener" class="btn-ghost">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            Read the docs
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ticker -->
+    <div class="ticker">
+      <div class="ticker__track" id="tickerTrack">
+        <div class="ticker__item"><span class="ticker__dot"></span><span class="ticker__pair">TSLA/USD</span><span class="ticker__price" data-ticker="TSLA/USD">$408.42</span></div>
+        <div class="ticker__item"><span class="ticker__dot"></span><span class="ticker__pair">NVDA/USD</span><span class="ticker__price" data-ticker="NVDA/USD">$211.93</span></div>
+        <div class="ticker__item"><span class="ticker__dot"></span><span class="ticker__pair">EUR/USD</span><span class="ticker__price" data-ticker="EUR/USD">$1.1445</span></div>
+        <div class="ticker__item"><span class="ticker__dot"></span><span class="ticker__pair">USOILSPOT/USD</span><span class="ticker__price" data-ticker="USOILSPOT/USD">$71.9195</span></div>
+        <div class="ticker__item"><span class="ticker__dot"></span><span class="ticker__pair">BTC/USD</span><span class="ticker__price" data-ticker="BTC/USD">$68,975.50</span></div>
+        <div class="ticker__item"><span class="ticker__dot"></span><span class="ticker__pair">ETH/USD</span><span class="ticker__price" data-ticker="ETH/USD">$3542.18</span></div>
+        <div class="ticker__item"><span class="ticker__dot"></span><span class="ticker__pair">SPY/USD</span><span class="ticker__price" data-ticker="SPY/USD">$771.03</span></div>
+        <div class="ticker__item"><span class="ticker__dot"></span><span class="ticker__pair">ASML/USD</span><span class="ticker__price" data-ticker="ASML/USD">$1710.02</span></div>
+        <!-- duplicate for seamless marquee -->
+        <div class="ticker__item" aria-hidden="true"><span class="ticker__dot"></span><span class="ticker__pair">TSLA/USD</span><span class="ticker__price" data-ticker="TSLA/USD">$408.42</span></div>
+        <div class="ticker__item" aria-hidden="true"><span class="ticker__dot"></span><span class="ticker__pair">NVDA/USD</span><span class="ticker__price" data-ticker="NVDA/USD">$211.93</span></div>
+        <div class="ticker__item" aria-hidden="true"><span class="ticker__dot"></span><span class="ticker__pair">EUR/USD</span><span class="ticker__price" data-ticker="EUR/USD">$1.1445</span></div>
+        <div class="ticker__item" aria-hidden="true"><span class="ticker__dot"></span><span class="ticker__pair">USOILSPOT/USD</span><span class="ticker__price" data-ticker="USOILSPOT/USD">$71.9195</span></div>
+        <div class="ticker__item" aria-hidden="true"><span class="ticker__dot"></span><span class="ticker__pair">BTC/USD</span><span class="ticker__price" data-ticker="BTC/USD">$68,975.50</span></div>
+        <div class="ticker__item" aria-hidden="true"><span class="ticker__dot"></span><span class="ticker__pair">ETH/USD</span><span class="ticker__price" data-ticker="ETH/USD">$3542.18</span></div>
+        <div class="ticker__item" aria-hidden="true"><span class="ticker__dot"></span><span class="ticker__pair">SPY/USD</span><span class="ticker__price" data-ticker="SPY/USD">$771.03</span></div>
+        <div class="ticker__item" aria-hidden="true"><span class="ticker__dot"></span><span class="ticker__pair">ASML/USD</span><span class="ticker__price" data-ticker="ASML/USD">$1710.02</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== What is Bazaar ===================== -->
+  <section id="what-is-bazaar" class="section section--fit">
+    <div class="container">
+      <div class="wi__intro">
+        <p class="eyebrow">What is Bazaar</p>
+        <h2 class="wi__title">A permissionless protocol, not a company.</h2>
+        <p class="wi__lead">Bazaar is the first ever fully permissionless derivatives marketplace where perpetual futures on almost any asset with a price can be traded by anyone, against anyone. Bazaar is immutable and unowned. A marketplace for everything can only stay neutral if <span class="hl">no one can say no</span>.</p>
+      </div>
+      <p class="eyebrow eyebrow--center">What makes Bazaar different</p>
+      <div class="features">
+        <div class="features__track">
+          <div class="card-feature">
+            <h3 class="card-feature__title">Open listing</h3>
+            <p class="card-feature__desc">Almost any asset with a live oracle feed can become a market. Stocks, crypto, commodities, FX, international equities — listed by anyone.</p>
+          </div>
+          <div class="card-feature">
+            <h3 class="card-feature__title">Censorship resistant</h3>
+            <p class="card-feature__desc">Matching is run by independent sequencers that compete for fees — and are penalized for censoring orders.</p>
+          </div>
+          <div class="card-feature">
+            <h3 class="card-feature__title">No house counterparty</h3>
+            <p class="card-feature__desc">Every trade matches trader against trader on an on-chain order book. Liquidity providers never take the other side of your position.</p>
+          </div>
+          <div class="card-feature">
+            <h3 class="card-feature__title">Every role is open</h3>
+            <p class="card-feature__desc">Run a sequencer, hunt liquidations, challenge fraud, underwrite risk. Every job the exchange needs is permissionless — and pays.</p>
+          </div>
+          <div class="card-feature">
+            <h3 class="card-feature__title">Immutable</h3>
+            <p class="card-feature__desc">No upgrades, no proxy patterns, no multisig. The deployed code is the protocol — forever.</p>
+          </div>
+          <div class="card-feature">
+            <h3 class="card-feature__title">No governance</h3>
+            <p class="card-feature__desc">No DAO, no token voting, no committees. It runs on math and incentives, not politics.</p>
+          </div>
+          <div class="card-feature" aria-hidden="true">
+            <h3 class="card-feature__title">Open listing</h3>
+            <p class="card-feature__desc">Almost any asset with a live oracle feed can become a market. Stocks, crypto, commodities, FX, international equities — listed by anyone.</p>
+          </div>
+          <div class="card-feature" aria-hidden="true">
+            <h3 class="card-feature__title">Censorship resistant</h3>
+            <p class="card-feature__desc">Matching is run by independent sequencers that compete for fees — and are penalized for censoring orders.</p>
+          </div>
+          <div class="card-feature" aria-hidden="true">
+            <h3 class="card-feature__title">No house counterparty</h3>
+            <p class="card-feature__desc">Every trade matches trader against trader on an on-chain order book. Liquidity providers never take the other side of your position.</p>
+          </div>
+          <div class="card-feature" aria-hidden="true">
+            <h3 class="card-feature__title">Every role is open</h3>
+            <p class="card-feature__desc">Run a sequencer, hunt liquidations, challenge fraud, underwrite risk. Every job the exchange needs is permissionless — and pays.</p>
+          </div>
+          <div class="card-feature" aria-hidden="true">
+            <h3 class="card-feature__title">Immutable</h3>
+            <p class="card-feature__desc">No upgrades, no proxy patterns, no multisig. The deployed code is the protocol — forever.</p>
+          </div>
+          <div class="card-feature" aria-hidden="true">
+            <h3 class="card-feature__title">No governance</h3>
+            <p class="card-feature__desc">No DAO, no token voting, no committees. It runs on math and incentives, not politics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Network ===================== -->
+  <section class="section section--band section--fit">
+    <div class="container">
+      <div class="sec__head">
+        <h2 class="sec__title">Run by independent operators, not a team</h2>
+        <p class="sec__sub sec__sub--lg">Six independent roles keep the protocol running. These roles are open to anyone. Everyone earns.</p>
+      </div>
+      <div class="net__grid">
+        <svg class="net__svg" viewBox="0 0 420 420" role="img" aria-label="Six protocol roles orbiting the Bazaar core">
+          <g class="net__orbit">
+            <line x1="210" y1="210" x2="210" y2="50" class="net__spoke"></line>
+            <line x1="210" y1="210" x2="348.56" y2="130" class="net__spoke"></line>
+            <line x1="210" y1="210" x2="348.56" y2="290" class="net__spoke"></line>
+            <line x1="210" y1="210" x2="210" y2="370" class="net__spoke"></line>
+            <line x1="210" y1="210" x2="71.44" y2="290" class="net__spoke"></line>
+            <line x1="210" y1="210" x2="71.44" y2="130" class="net__spoke"></line>
+            <line x1="210" y1="50" x2="348.56" y2="130" class="net__ring"></line>
+            <line x1="348.56" y1="130" x2="348.56" y2="290" class="net__ring"></line>
+            <line x1="348.56" y1="290" x2="210" y2="370" class="net__ring"></line>
+            <line x1="210" y1="370" x2="71.44" y2="290" class="net__ring"></line>
+            <line x1="71.44" y1="290" x2="71.44" y2="130" class="net__ring"></line>
+            <line x1="71.44" y1="130" x2="210" y2="50" class="net__ring"></line>
+            <g class="net__node" style="transform-origin:210px 50px;">
+              <circle cx="210" cy="50" r="39" fill="#000000" stroke="#FDE000" stroke-width="2"></circle>
+              <text x="210" y="53.5" class="net__label">Integrator</text>
+            </g>
+            <g class="net__node" style="transform-origin:348.56px 130px;">
+              <circle cx="348.56" cy="130" r="39" fill="#000000" stroke="#FDE000" stroke-width="2"></circle>
+              <text x="348.56" y="133.5" class="net__label">Sequencer</text>
+            </g>
+            <g class="net__node" style="transform-origin:348.56px 290px;">
+              <circle cx="348.56" cy="290" r="39" fill="#000000" stroke="#FDE000" stroke-width="2"></circle>
+              <text x="348.56" y="293.5" class="net__label">Insurer</text>
+            </g>
+            <g class="net__node" style="transform-origin:210px 370px;">
+              <circle cx="210" cy="370" r="39" fill="#000000" stroke="#FDE000" stroke-width="2"></circle>
+              <text x="210" y="373.5" class="net__label">Watchtower</text>
+            </g>
+            <g class="net__node" style="transform-origin:71.44px 290px;">
+              <circle cx="71.44" cy="290" r="39" fill="#000000" stroke="#FDE000" stroke-width="2"></circle>
+              <text x="71.44" y="293.5" class="net__label">Liquidator</text>
+            </g>
+            <g class="net__node" style="transform-origin:71.44px 130px;">
+              <circle cx="71.44" cy="130" r="39" fill="#000000" stroke="#FDE000" stroke-width="2"></circle>
+              <text x="71.44" y="133.5" class="net__label">ADL</text>
+            </g>
+          </g>
+          <circle cx="210" cy="210" r="56" fill="#000000" stroke="#FDE000" stroke-width="2.5"></circle>
+          <image href="assets/bazaar-emblem-yellow.png" x="181" y="181" width="58" height="58"></image>
+        </svg>
+        <div class="roles">
+          <div class="role"><span class="role__num">01</span><div><h4 class="role__name">Integrators</h4><p class="role__desc">Build frontends, APIs, relayer bots, and tools on top of the protocol. Earn a share of trading fees on every order routed through them.</p></div></div>
+          <div class="role"><span class="role__num">02</span><div><h4 class="role__name">Sequencers</h4><p class="role__desc">Post bonds to submit sorted match batches on-chain and earn per-fill fees. Anyone with a bond can sequence.</p></div></div>
+          <div class="role"><span class="role__num">03</span><div><h4 class="role__name">Insurers</h4><p class="role__desc">Deposit capital into the per-asset insurance fund and earn yield from liquidations and trading fees; absorb losses from bad debt on liquidations.</p></div></div>
+          <div class="role"><span class="role__num">04</span><div><h4 class="role__name">Watchtowers</h4><p class="role__desc">Challenge sequencers that partake in censorship and skip orders.</p></div></div>
+          <div class="role"><span class="role__num">05</span><div><h4 class="role__name">Liquidators</h4><p class="role__desc">Liquidate underwater positions before they become insolvent.</p></div></div>
+          <div class="role"><span class="role__num">06</span><div><h4 class="role__name">ADL Bots</h4><p class="role__desc">Execute auto-deleveraging when liquidation exposure exceeds the insurance fund. Close winning positions against pending liquidations via a Dutch auction.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Markets ===================== -->
+  <section class="section">
+    <div class="container">
+      <div class="sec__head">
+        <h2 class="sec__title">Every market, one protocol</h2>
+        <p class="sec__sub sec__sub--md">Any asset with a live oracle feed can be listed and traded 24/7</p>
+      </div>
+      <div class="markets">
+        <div class="market"><span class="market__tag">Crypto</span><div class="market__price" data-market-price="BTC/USD">$68,975.50</div><div class="market__pair">BTC/USD</div></div>
+        <div class="market"><span class="market__tag">ETF</span><div class="market__price" data-market-price="SPY/USD">$771.03</div><div class="market__pair">SPY/USD</div></div>
+        <div class="market"><span class="market__tag">International stock</span><div class="market__price" data-market-price="ASML/USD">$1710.02</div><div class="market__pair">ASML/USD</div></div>
+        <div class="market"><span class="market__tag">Stock</span><div class="market__price" data-market-price="NVDA/USD">$211.93</div><div class="market__pair">NVDA/USD</div></div>
+        <div class="market"><span class="market__tag">Commodity</span><div class="market__price" data-market-price="USOILSPOT/USD">$71.9195</div><div class="market__pair">USOILSPOT/USD</div></div>
+        <div class="market"><span class="market__tag">Forex</span><div class="market__price" data-market-price="EUR/USD">$1.1445</div><div class="market__pair">EUR/USD</div></div>
+      </div>
+      <p class="markets__live">
+        <span class="markets__live-dot"></span>
+        Updating live · powered by Pyth
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== Waitlist ===================== -->
+  <section id="waitlist" class="waitlist">
+    <div class="waitlist__inner">
+      <div class="waitlist__card">
+        <h2 class="waitlist__title">Want in early?</h2>
+        <p class="waitlist__sub">Drop your email and we'll let you know when testnet is ready.</p>
+        <form class="wl__form" id="waitlistForm" method="POST" action="https://47262c6c.sibforms.com/serve/MUIFAPwFdpAdywX_xZl3SFPY8-3a-V5ydyqN-ZoZnMfEEFXpaibPG3fYnzo2ikvy4eBrq9hujYRgqKMN0wQioajmRboDA8DxMrbkofQ8eGPNsv-TkXe4QE5ZnmgWUM9YyyDC5zeHDXTEp7GJWSH3dgStMd59Rk1xYCKPfChX7nvK9qmNxDai74fR_Fv58zhYDYbXGBQtP86k0BroAw==" target="brevo_iframe">
+          <input class="wl__input" id="waitlistEmail" type="email" name="EMAIL" required autocomplete="email" placeholder="your@email.com" />
+          <button class="wl__btn" type="submit">Notify me</button>
+          <input type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-5000px; width:1px; height:1px; opacity:0;" />
+          <input type="hidden" name="locale" value="en" />
+        </form>
+        <div class="wl__success" id="waitlistSuccess" hidden>You're on the list ⚡</div>
+        <iframe name="brevo_iframe" title="Brevo subscription" aria-hidden="true" tabindex="-1" style="display:none;"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__tag">Perpetua et firma libertas</p>
+      <div class="footer__links">
+        <a href="https://github.com/bazaar-finance/bazaar" target="_top" rel="noopener" class="footer__link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg> GitHub</a>
+        <a href="https://docs.bazaar.finance" target="_top" rel="noopener" class="footer__link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg> Docs</a>
+        <a href="mailto:bazaarfi@proton.me" target="_top" class="footer__link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg> Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
