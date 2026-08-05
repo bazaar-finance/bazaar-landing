@@ -14,11 +14,7 @@ bazaar-landing/
 ├── index.html      # All markup and copy
 ├── styles.css      # Styles, theme tokens, responsive breakpoints
 ├── script.js       # Live prices, theme toggle, glitch, drag marquee, confetti
-├── CNAME           # Custom domain for GitHub Pages — bazaar.finance
 ├── README.md
-├── .github/
-│   └── workflows/
-│       └── deploy.yml   # Auto-deploys every push to main
 └── assets/
     ├── bazaar-logo-yellow.png    # Horizontal logo — dark mode
     ├── bazaar-logo-new.png       # Horizontal logo — light mode
@@ -41,28 +37,29 @@ Double-clicking `index.html` also works; fonts and live prices just need a conne
 
 ## Deploy
 
-Pushing to `main` publishes to <https://bazaar.finance> automatically.
-`.github/workflows/deploy.yml` uploads the repo root as the Pages artifact and deploys it —
-there's no build step, so the files ship exactly as they sit here. Runs show up under the
-repo's **Actions** tab, and the workflow can also be triggered by hand from there.
+Cloudflare Pages, connected to this repo — pushing to `main` publishes to
+<https://bazaar.finance>. There is no build step, so the project settings are:
 
-Two one-time settings this depends on:
+| Setting | Value |
+| --- | --- |
+| Framework preset | None |
+| Build command | *(leave empty)* |
+| Build output directory | `/` |
 
-- **Settings → Pages → Source** must be **GitHub Actions**, not "Deploy from a branch".
-- **Settings → Pages → Custom domain** set to `bazaar.finance`. The `CNAME` file keeps the
-  domain attached, but the settings entry is what provisions the TLS certificate. Turn on
-  **Enforce HTTPS** once it's issued.
+Cloudflare serves the repo root exactly as it sits here. It deploys from private repos on
+the free tier and doesn't meter bandwidth, which matters because `snek.mp4` is ~2 MB of
+every cold page load.
 
-DNS is configured at the registrar:
+Apex domains on Cloudflare Pages depend on CNAME flattening, so `bazaar.finance` needs its
+nameservers pointed at Cloudflare. The domain can stay registered at Njalla — only the NS
+records move.
 
-| Record | Host | Value |
-| --- | --- | --- |
-| A | `@` | `185.199.108.153` `185.199.109.153` `185.199.110.153` `185.199.111.153` |
-| CNAME | `www` | `bazaar-finance.github.io` |
+A `_headers` file at the root sets response headers if you want a long `Cache-Control` on
+the video or a CSP; Cloudflare reads it, and it's ignored everywhere else.
 
-Note that Pages needs the repo to be public unless the account is on a paid plan. None of
-this is GitHub-specific, though — Netlify, Vercel, and Cloudflare Pages all serve the folder
-as-is with no build command, and all three deploy from private repos for free.
+None of this is host-specific. Netlify and Vercel serve the folder with no build command
+too, and GitHub Pages works if you point it at the branch — it just needs a public repo on
+the free plan and caps bandwidth at 100 GB/month.
 
 ## Page sections
 
