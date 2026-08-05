@@ -3,16 +3,22 @@
 Landing page for **Bazaar**, the first permissionless derivatives marketplace — a
 decentralized, immutable, governance-free perpetual futures protocol.
 
+Live at **<https://bazaar.finance>**.
+
 Framework-free: no build step, no bundler, no npm install. Open `index.html` and it runs.
 
 ## Structure
 
 ```
-bazaar-landingpage/
+bazaar-landing/
 ├── index.html      # All markup and copy
 ├── styles.css      # Styles, theme tokens, responsive breakpoints
 ├── script.js       # Live prices, theme toggle, glitch, drag marquee, confetti
+├── CNAME           # Custom domain for GitHub Pages — bazaar.finance
 ├── README.md
+├── .github/
+│   └── workflows/
+│       └── deploy.yml   # Auto-deploys every push to main
 └── assets/
     ├── bazaar-logo-yellow.png    # Horizontal logo — dark mode
     ├── bazaar-logo-new.png       # Horizontal logo — light mode
@@ -35,8 +41,28 @@ Double-clicking `index.html` also works; fonts and live prices just need a conne
 
 ## Deploy
 
-Drag the folder into Netlify, or push it and point Vercel / Cloudflare Pages /
-GitHub Pages at the repo. Nothing to build.
+Pushing to `main` publishes to <https://bazaar.finance> automatically.
+`.github/workflows/deploy.yml` uploads the repo root as the Pages artifact and deploys it —
+there's no build step, so the files ship exactly as they sit here. Runs show up under the
+repo's **Actions** tab, and the workflow can also be triggered by hand from there.
+
+Two one-time settings this depends on:
+
+- **Settings → Pages → Source** must be **GitHub Actions**, not "Deploy from a branch".
+- **Settings → Pages → Custom domain** set to `bazaar.finance`. The `CNAME` file keeps the
+  domain attached, but the settings entry is what provisions the TLS certificate. Turn on
+  **Enforce HTTPS** once it's issued.
+
+DNS is configured at the registrar:
+
+| Record | Host | Value |
+| --- | --- | --- |
+| A | `@` | `185.199.108.153` `185.199.109.153` `185.199.110.153` `185.199.111.153` |
+| CNAME | `www` | `bazaar-finance.github.io` |
+
+Note that Pages needs the repo to be public unless the account is on a paid plan. None of
+this is GitHub-specific, though — Netlify, Vercel, and Cloudflare Pages all serve the folder
+as-is with no build command, and all three deploy from private repos for free.
 
 ## Page sections
 
