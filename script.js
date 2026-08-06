@@ -223,6 +223,7 @@
       form.style.display = "none";
       success.hidden = false;
       fireConfetti(success);
+      countEvent("waitlist-signup", "Waitlist signup");
     });
   }
 
@@ -336,9 +337,37 @@
     track.addEventListener("pointercancel", endDrag);
   }
 
+  /* ---------- Analytics ---------- */
+  // GoatCounter events. These are counted separately from pageviews and show up under
+  // their own paths in the dashboard. count.js loads async and is a routine ad-block
+  // target, so every call is guarded — a missing counter must never break a click.
+  function countEvent(path, title) {
+    var gc = window.goatcounter;
+    if (!gc || typeof gc.count !== "function") return;
+    try {
+      gc.count({ path: path, title: title, event: true });
+    } catch (e) {}
+  }
+
+  // Delegated, so it covers every copy of a link without touching the markup: Docs
+  // appears three times and GitHub twice, and clicks frequently land on the inline
+  // SVG inside the footer links rather than on the anchor itself.
+  function initAnalytics() {
+    document.addEventListener("click", function (e) {
+      var el = e.target;
+      var a = el && el.closest ? el.closest("a") : null;
+      if (!a) return;
+      var href = a.getAttribute("href") || "";
+      if (href.indexOf("github.com") > -1) countEvent("click-github", "GitHub");
+      else if (href.indexOf("docs.bazaar.finance") > -1) countEvent("click-docs", "Docs");
+      else if (href === "#waitlist") countEvent("click-waitlist-cta", "Waitlist CTA");
+    });
+  }
+
   /* ---------- Boot ---------- */
   function boot() {
     initTheme();
+    initAnalytics();
     initGlitch();
     initWaitlist();
     initFeatures();
