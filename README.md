@@ -46,29 +46,6 @@ GitHub Pages. Pushing to `master` publishes to <https://bazaar.finance> automati
 There is no build step, so the files ship exactly as they sit here. Runs appear under the
 repo's **Actions** tab and can also be started by hand from there.
 
-Three one-time settings this depends on:
-
-- The repo must be **public** — Pages needs a paid plan to publish from a private repo.
-- **Settings → Pages → Source** set to **GitHub Actions**, not "Deploy from a branch".
-- **Settings → Pages → Custom domain** set to `bazaar.finance`. The `CNAME` file keeps the
-  domain attached across deploys, but the settings entry is what provisions the TLS
-  certificate. Turn on **Enforce HTTPS** once it has been issued.
-
-DNS stays at the registrar — GitHub publishes stable apex addresses, so nothing about the
-zone has to move:
-
-| Record | Host | Value |
-| --- | --- | --- |
-| A | `@` | `185.199.108.153` `185.199.109.153` `185.199.110.153` `185.199.111.153` |
-| CNAME | `www` | `bazaar-finance.github.io` |
-
-Pages has a soft bandwidth limit of 100 GB/month. At the current page weight that is roughly
-50k views; `snek.mp4` is ~2 MB of every cold load and dominates the number.
-
-Nothing here is host-specific. Netlify, Vercel, and Cloudflare Pages all serve the folder
-with no build command — Cloudflare needs the domain's nameservers pointed at it, the others
-work with the zone as it stands.
-
 ## Page sections
 
 1. **Hero** — headline with the glitch box, CTAs, live price ticker
