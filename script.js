@@ -226,6 +226,58 @@
     });
   }
 
+  /* ---------- Price ticker: seamless infinite marquee ---------- */
+  // The CSS animation shifts the track by -50%, i.e. exactly one half. That only looks
+  // seamless while one half is at least as wide as the viewport — otherwise the content
+  // runs out and visibly snaps back. So repeat the unique item set until each half
+  // overflows the screen, keeping the two halves identical.
+  function initTicker() {
+    var track = document.getElementById("tickerTrack");
+    if (!track) return;
+
+    var unique = [].slice.call(track.children)
+      .filter(function (el) { return !el.hasAttribute("aria-hidden"); });
+    if (!unique.length) return;
+
+    var SPEED = 60; // px per second
+
+    function build() {
+      var unitW = unique.reduce(function (sum, el) { return sum + el.getBoundingClientRect().width; }, 0);
+      if (!unitW) return;
+
+      var reps = Math.max(1, Math.ceil(window.innerWidth / unitW));
+      var halfW = unitW * reps;
+
+      var frag = document.createDocumentFragment();
+      for (var copy = 0; copy < 2; copy++) {
+        for (var r = 0; r < reps; r++) {
+          for (var i = 0; i < unique.length; i++) {
+            var node = unique[i].cloneNode(true);
+            // Only the first copy is exposed to assistive tech; the rest are decorative.
+            if (copy === 0 && r === 0) node.removeAttribute("aria-hidden");
+            else node.setAttribute("aria-hidden", "true");
+            frag.appendChild(node);
+          }
+        }
+      }
+
+      track.textContent = "";
+      track.appendChild(frag);
+      track.style.animationDuration = (halfW / SPEED) + "s";
+      renderPrices(); // re-fill the freshly cloned nodes
+    }
+
+    build();
+
+    var t = null, lastW = window.innerWidth;
+    window.addEventListener("resize", function () {
+      if (window.innerWidth === lastW) return; // ignore mobile scroll-driven resizes
+      lastW = window.innerWidth;
+      clearTimeout(t);
+      t = setTimeout(build, 200);
+    });
+  }
+
   /* ---------- Features marquee: auto-scroll + drag ---------- */
   function initFeatures() {
     var viewport = document.querySelector(".features");
@@ -290,6 +342,7 @@
     initGlitch();
     initWaitlist();
     initFeatures();
+    initTicker();
     renderPrices();
     fetchPrices();
     setInterval(fetchPrices, 1000);

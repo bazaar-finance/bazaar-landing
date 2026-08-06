@@ -26,6 +26,7 @@ input { font-family: inherit; }
 
 /* ---------- Theme tokens ---------- */
 :root, [data-theme="dark"] {
+  color-scheme: dark;
   --bg:#000000; --fg:#FDE000; --card-bg:#FDE000; --card-fg:#000000; --card-desc:rgba(0,0,0,0.6);
   --nav-bg:rgba(0,0,0,0.9); --border:rgba(253,224,0,0.1);
   --muted:rgba(253,224,0,0.6); --muted-strong:rgba(253,224,0,0.7); --muted-soft:rgba(253,224,0,0.5);
@@ -43,6 +44,7 @@ input { font-family: inherit; }
   --wl-btn-bg:#000000; --wl-btn-fg:#ffffff;
 }
 [data-theme="light"] {
+  color-scheme: light;
   --bg:#FDE000; --fg:#000000; --card-bg:#000000; --card-fg:#FDE000; --card-desc:rgba(255,255,255,0.7);
   --nav-bg:rgba(253,224,0,0.9); --border:rgba(0,0,0,0.1);
   --muted:rgba(0,0,0,0.6); --muted-strong:rgba(0,0,0,0.7); --muted-soft:rgba(0,0,0,0.5);
@@ -103,7 +105,9 @@ input { font-family: inherit; }
 .btn-toggle:hover { transform: scale(1.05); }
 
 /* ---------- Hero ---------- */
-.hero { min-height: 100vh; display: flex; flex-direction: column; padding-top: 56px; }
+/* 100svh = the viewport minus mobile browser chrome (URL bar), so the ticker lands at the
+   real bottom edge on phones. The 100vh line stays first as a fallback. */
+.hero { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding-top: 56px; }
 .hero__center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 24px 16px; }
 .hero__content { width: 100%; max-width: 1024px; margin: 0 auto; text-align: center; }
 
@@ -172,7 +176,7 @@ input { font-family: inherit; }
 
 /* ---------- Section scaffolding ---------- */
 .section { padding: 112px 24px; }
-.section--fit { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+.section--fit { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
 .section--band {
   background: var(--section-bg);
   border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
@@ -302,6 +306,21 @@ input { font-family: inherit; }
 @media (min-width: 1024px) {
   .section, .waitlist { padding-top: 144px; padding-bottom: 144px; }
   .net__grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Short/small screens: desktop-scale 112px padding makes the fit-to-screen sections taller
+   than the viewport, so their centered content gets clipped. Trim it so they actually fit. */
+@media (max-width: 640px), (max-height: 900px) {
+  .section--fit {
+    padding-top: 32px; padding-bottom: 32px;
+    /* Anchored sections sit 56px down (under the fixed nav), so subtract it or the
+       bottom of the content falls past the fold. */
+    min-height: calc(100vh - 56px);
+    min-height: calc(100svh - 56px);
+  }
+  /* Tighten the two biggest internal gaps so the content clears the fold. */
+  .section--fit .wi__intro { margin-bottom: 24px; }
+  .section--fit .eyebrow--center { margin-bottom: 24px; }
 }
 
 /* Respect reduced-motion preferences */
