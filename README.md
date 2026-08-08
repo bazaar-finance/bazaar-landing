@@ -66,7 +66,7 @@ markup, so there's no flash before CSS loads. The navbar toggle switches to ligh
 the choice to `localStorage` (per device). It intentionally does *not* follow the OS
 `prefers-color-scheme` setting.
 
-**Live prices.** Three keyless sources feed the hero ticker and the market tiles
+**Live prices.** Two keyless sources feed the hero ticker and the market tiles
 (Pyth Hermes was dropped in August 2026 when it moved behind paid API keys):
 
 - **Crypto (BTC, ETH)** — Coinbase Exchange ticker (`/products/{pair}-USD/ticker`),
@@ -74,14 +74,13 @@ the choice to `localStorage` (per device). It intentionally does *not* follow th
   swap in the friendlier `/v2/exchange-rates` endpoint — it's server-cached and sits
   still for minutes, which makes the ticker look dead. Prices flash briefly on change
   (disabled under reduced motion).
-- **EUR/USD** — Frankfurter (ECB reference rate), fetched on load and hourly. Updates
-  once per business day.
-- **Equities + WTI (TSLA, NVDA, SPY, ASML, CL=F)** — browsers can't call Yahoo Finance
-  (no CORS header), so `scripts/fetch-prices.py` runs inside the deploy workflow, which
-  also fires on a 15-minute weekday cron. It writes `prices.json` into the deployed
-  artifact (never the repo) and the page re-fetches it every 5 minutes. Effective
-  freshness is ~15–25 min after Pages' 10-minute edge cache; equities move only during
-  US market hours anyway. On failure the script reuses the currently-live prices.json.
+- **Everything else (TSLA, NVDA, SPY, ASML, WTI via CL=F, EUR via EURUSD=X)** —
+  browsers can't call Yahoo Finance (no CORS header), so `scripts/fetch-prices.py`
+  runs inside the deploy workflow, which also fires on a 15-minute weekday cron. It
+  writes `prices.json` into the deployed artifact (never the repo) and the page
+  re-fetches it every 5 minutes. Effective freshness is ~15–25 min after Pages'
+  10-minute edge cache — fine for instruments that only trade in sessions anyway.
+  On failure the script reuses the currently-live prices.json.
 
 Every pair is seeded in `script.js` and in the markup, so nothing looks empty if a
 source is slow or blocked. WTI is the front-month future (`CL=F`), the standard proxy

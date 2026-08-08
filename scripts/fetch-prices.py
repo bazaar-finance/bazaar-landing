@@ -23,6 +23,7 @@ SYMBOLS = {
     "SPY": "SPY/USD",
     "ASML": "ASML/USD",
     "CL=F": "WTI/USD",  # front-month WTI futures, the usual spot proxy
+    "EURUSD=X": "EUR/USD",  # intraday interbank rate; beats the once-daily ECB fixing
 }
 
 LIVE_URL = "https://bazaar.finance/prices.json"
