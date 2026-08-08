@@ -16,9 +16,11 @@ bazaar-landing/
 ├── script.js       # Live prices, theme toggle, glitch, drag marquee, confetti
 ├── CNAME           # Custom domain for GitHub Pages — bazaar.finance
 ├── README.md
+├── scripts/
+│   └── fetch-prices.py  # Build-time equity/oil fetch → prices.json (not committed)
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml   # Auto-deploys every push to master
+│       └── deploy.yml   # Deploys every push to master + every 15 min on weekdays
 └── assets/
     ├── bazaar-logo-yellow.png    # Horizontal logo — dark mode
     ├── bazaar-logo-new.png       # Horizontal logo — light mode
@@ -43,8 +45,10 @@ Double-clicking `index.html` also works; fonts and live prices just need a conne
 
 GitHub Pages. Pushing to `master` publishes to <https://bazaar.finance> automatically —
 `.github/workflows/deploy.yml` uploads the repo root as the Pages artifact and deploys it.
-There is no build step, so the files ship exactly as they sit here. Runs appear under the
-repo's **Actions** tab and can also be started by hand from there.
+The workflow also runs on a 15-minute weekday cron purely to refresh `prices.json`
+(see Live prices below). The only build-time work is that price fetch; everything else
+ships exactly as it sits here. Runs appear under the repo's **Actions** tab and can be
+started by hand from there.
 
 ## Page sections
 
@@ -62,13 +66,23 @@ markup, so there's no flash before CSS loads. The navbar toggle switches to ligh
 the choice to `localStorage` (per device). It intentionally does *not* follow the OS
 `prefers-color-scheme` setting.
 
-**Live prices.** Pulled from the Pyth Hermes API every second, feeding both the hero ticker
-and the market tiles. Feed IDs live in `PYTH_IDS` at the top of `script.js`
-(BTC, ETH, TSLA, NVDA, ASML, SPY, US oil spot, EUR). Every value is seeded with a sample price, so
-nothing looks empty if the API is slow or blocked. Note that equity feeds (TSLA, NVDA, ASML, SPY)
-only tick during US market hours; crypto, oil, and FX run nearly 24/7.
-Avoid Pyth's `.ON` (overnight) feed variants — several have stopped publishing and freeze at a
-stale value. Check a feed's `publish_time` before wiring it in.
+**Live prices.** Three keyless sources feed the hero ticker and the market tiles
+(Pyth Hermes was dropped in August 2026 when it moved behind paid API keys):
+
+- **Crypto (BTC, ETH)** — Coinbase `exchange-rates`, polled every 3s in the browser.
+  One request returns every rate; the USD price is the inverse of the returned rate.
+- **EUR/USD** — Frankfurter (ECB reference rate), fetched on load and hourly. Updates
+  once per business day.
+- **Equities + WTI (TSLA, NVDA, SPY, ASML, CL=F)** — browsers can't call Yahoo Finance
+  (no CORS header), so `scripts/fetch-prices.py` runs inside the deploy workflow, which
+  also fires on a 15-minute weekday cron. It writes `prices.json` into the deployed
+  artifact (never the repo) and the page re-fetches it every 5 minutes. Effective
+  freshness is ~15–25 min after Pages' 10-minute edge cache; equities move only during
+  US market hours anyway. On failure the script reuses the currently-live prices.json.
+
+Every pair is seeded in `script.js` and in the markup, so nothing looks empty if a
+source is slow or blocked. WTI is the front-month future (`CL=F`), the standard proxy
+for spot oil.
 
 **Glitch box.** The "without permission." phrase flickers with chromatic aberration every
 2–4 seconds for 400ms. Hovering it (desktop) or tapping it (touch) plays `snek.mp4` once

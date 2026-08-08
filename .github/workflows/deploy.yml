@@ -4,6 +4,10 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
+  schedule:
+    # Refresh equity/oil prices in prices.json. Weekdays only — the sources
+    # don't move on weekends. The site keeps serving between runs regardless.
+    - cron: "*/15 * * * 1-5"
 
 permissions:
   contents: read
@@ -23,6 +27,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
+      # Bake equity + WTI prices into the artifact (browsers can't call Yahoo
+      # directly — no CORS). Never fails the deploy: on fetch trouble the script
+      # falls back to the currently-live prices.json, and failing that the page
+      # uses its seeded values.
+      - name: Fetch equity and oil prices
+        run: python3 scripts/fetch-prices.py
 
       - uses: actions/configure-pages@v5
 
