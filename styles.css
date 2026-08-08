@@ -119,7 +119,7 @@ input { font-family: inherit; }
   background: var(--card-bg); color: var(--card-fg); box-shadow: 0 4px 14px var(--shadow);
   transition: background-color 0.5s, color 0.5s;
 }
-.badge__dot { width: 8px; height: 8px; background: #4ade80; border-radius: 9999px; animation: bazaar-blink 1.2s steps(1) infinite; }
+.badge__dot { width: 8px; height: 8px; background: #4ade80; border-radius: 9999px; animation: bazaar-blink 2.8s steps(1) infinite; }
 
 .hero__title {
   font-size: clamp(28px, 8.2vw, 40px); font-weight: 900; letter-spacing: -0.025em;
@@ -294,8 +294,8 @@ input { font-family: inherit; }
 @keyframes glitchFlash { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 @keyframes bazaar-orbit-spin { to { transform: rotate(360deg); } }
 @keyframes bazaar-orbit-spin-rev { to { transform: rotate(-360deg); } }
-/* Hard on/off blink for the "In development" status dot */
-@keyframes bazaar-blink { 0% { opacity: 1; } 50% { opacity: 0.15; } 100% { opacity: 1; } }
+/* Status-LED blink for the "In development" dot: on ~2.4s, brief off wink */
+@keyframes bazaar-blink { 0% { opacity: 1; } 87% { opacity: 0.15; } 100% { opacity: 1; } }
 
 /* ---------- Responsive ---------- */
 @media (min-width: 640px) {
