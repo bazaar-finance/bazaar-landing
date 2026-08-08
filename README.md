@@ -20,7 +20,9 @@ bazaar-landing/
 │   └── fetch-prices.py  # Build-time equity/oil fetch → prices.json (not committed)
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml   # Deploys every push to master + every 5 min Sun-Fri
+│       ├── deploy.yml      # Deploys every push to master + every 5 min Sun-Fri
+│       └── keepalive.yml   # Weekly: empty commit after 50 quiet days, so GitHub
+│                           # never disables the cron schedules (60-day rule)
 └── assets/
     ├── bazaar-logo-yellow.png    # Horizontal logo — dark mode
     ├── bazaar-logo-new.png       # Horizontal logo — light mode
