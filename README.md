@@ -20,7 +20,7 @@ bazaar-landing/
 │   └── fetch-prices.py  # Build-time equity/oil fetch → prices.json (not committed)
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml   # Deploys every push to master + every 15 min on weekdays
+│       └── deploy.yml   # Deploys every push to master + every 5 min Sun-Fri
 └── assets/
     ├── bazaar-logo-yellow.png    # Horizontal logo — dark mode
     ├── bazaar-logo-new.png       # Horizontal logo — light mode
@@ -45,7 +45,7 @@ Double-clicking `index.html` also works; fonts and live prices just need a conne
 
 GitHub Pages. Pushing to `master` publishes to <https://bazaar.finance> automatically —
 `.github/workflows/deploy.yml` uploads the repo root as the Pages artifact and deploys it.
-The workflow also runs on a 15-minute weekday cron purely to refresh `prices.json`
+The workflow also runs on a 5-minute Sun–Fri cron purely to refresh `prices.json`
 (see Live prices below). The only build-time work is that price fetch; everything else
 ships exactly as it sits here. Runs appear under the repo's **Actions** tab and can be
 started by hand from there.
@@ -76,11 +76,13 @@ the choice to `localStorage` (per device). It intentionally does *not* follow th
   (disabled under reduced motion).
 - **Everything else (TSLA, NVDA, SPY, ASML, WTI via CL=F, EUR via EURUSD=X)** —
   browsers can't call Yahoo Finance (no CORS header), so `scripts/fetch-prices.py`
-  runs inside the deploy workflow, which also fires on a 15-minute weekday cron. It
-  writes `prices.json` into the deployed artifact (never the repo) and the page
-  re-fetches it every 5 minutes. Effective freshness is ~15–25 min after Pages'
-  10-minute edge cache — fine for instruments that only trade in sessions anyway.
-  On failure the script reuses the currently-live prices.json.
+  runs inside the deploy workflow, which also fires on a 5-minute Sun–Fri cron
+  (GitHub's floor; scheduled runs can lag a few minutes under load). It writes
+  `prices.json` into the deployed artifact (never the repo). The page re-fetches it
+  every minute with a minute-bucketed `?t=` query — Pages caches for 10 minutes, and
+  the changing query is what lets visitors see each new deploy promptly. Effective
+  freshness is roughly 0–7 minutes. On failure the script reuses the currently-live
+  prices.json.
 
 Every pair is seeded in `script.js` and in the markup, so nothing looks empty if a
 source is slow or blocked. WTI is the front-month future (`CL=F`), the standard proxy

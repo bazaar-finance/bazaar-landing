@@ -5,9 +5,11 @@ on:
     branches: [master]
   workflow_dispatch:
   schedule:
-    # Refresh equity/oil prices in prices.json. Weekdays only — the sources
-    # don't move on weekends. The site keeps serving between runs regardless.
-    - cron: "*/15 * * * 1-5"
+    # Refresh prices.json. Every 5 minutes is GitHub's floor, and scheduled
+    # runs can lag several minutes under load — treat this as best-effort.
+    # Sun-Fri: FX and WTI reopen Sunday evening UTC; only Saturday is dead.
+    # The site keeps serving between runs regardless.
+    - cron: "*/5 * * * 0-5"
 
 permissions:
   contents: read

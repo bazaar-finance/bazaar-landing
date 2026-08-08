@@ -69,7 +69,10 @@
   }
 
   function fetchBaked() {
-    fetch("prices.json")
+    // Minute-bucketed query so each minute is a fresh CDN object — otherwise
+    // Pages' 10-minute edge cache pins visitors to a stale copy. Within the
+    // same minute all visitors still share one cached response.
+    fetch("prices.json?t=" + Math.floor(Date.now() / 60000))
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
         if (!d) return;
@@ -395,8 +398,8 @@
     renderPrices();
     fetchCrypto();
     fetchBaked();
-    setInterval(fetchCrypto, 3000);       // Coinbase: well under their per-IP limit
-    setInterval(fetchBaked, 5 * 60000);   // redeployed every ~15 min; Pages caches 10
+    setInterval(fetchCrypto, 3000);   // Coinbase: well under their per-IP limit
+    setInterval(fetchBaked, 60000);   // ~250 bytes/min; redeployed every ~5 min
   }
 
   if (document.readyState === "loading") {
