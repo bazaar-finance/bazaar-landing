@@ -69,8 +69,11 @@ the choice to `localStorage` (per device). It intentionally does *not* follow th
 **Live prices.** Three keyless sources feed the hero ticker and the market tiles
 (Pyth Hermes was dropped in August 2026 when it moved behind paid API keys):
 
-- **Crypto (BTC, ETH)** — Coinbase `exchange-rates`, polled every 3s in the browser.
-  One request returns every rate; the USD price is the inverse of the returned rate.
+- **Crypto (BTC, ETH)** — Coinbase Exchange ticker (`/products/{pair}-USD/ticker`),
+  polled every 3s in the browser; the `price` field is the actual last trade. Don't
+  swap in the friendlier `/v2/exchange-rates` endpoint — it's server-cached and sits
+  still for minutes, which makes the ticker look dead. Prices flash briefly on change
+  (disabled under reduced motion).
 - **EUR/USD** — Frankfurter (ECB reference rate), fetched on load and hourly. Updates
   once per business day.
 - **Equities + WTI (TSLA, NVDA, SPY, ASML, CL=F)** — browsers can't call Yahoo Finance

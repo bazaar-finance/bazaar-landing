@@ -32,31 +32,40 @@
     return v.toFixed(4);
   }
 
+  // Update an element's price text, flashing it briefly when the value changed
+  // so live ticks are visible at a glance. The flash is pure CSS (.is-tick) and
+  // inert under prefers-reduced-motion.
+  function setPrice(el, pair) {
+    var text = prices[pair] != null ? "$" + fmt(pair, prices[pair]) : "—";
+    if (el.textContent === text) return;
+    el.textContent = text;
+    el.classList.remove("is-tick");
+    void el.offsetWidth; // restart the transition if ticks arrive back-to-back
+    el.classList.add("is-tick");
+    setTimeout(function () { el.classList.remove("is-tick"); }, 600);
+  }
+
   function renderPrices() {
     document.querySelectorAll("[data-ticker]").forEach(function (el) {
-      var p = el.getAttribute("data-ticker");
-      el.textContent = prices[p] != null ? "$" + fmt(p, prices[p]) : "—";
+      setPrice(el, el.getAttribute("data-ticker"));
     });
     document.querySelectorAll("[data-market-price]").forEach(function (el) {
-      var p = el.getAttribute("data-market-price");
-      el.textContent = prices[p] != null ? "$" + fmt(p, prices[p]) : "—";
+      setPrice(el, el.getAttribute("data-market-price"));
     });
   }
 
   function fetchCrypto() {
-    fetch("https://api.coinbase.com/v2/exchange-rates?currency=USD")
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
-        var rates = d && d.data && d.data.rates;
-        if (!rates) return;
-        // rates.BTC is "BTC per 1 USD", so the USD price is the inverse.
-        ["BTC", "ETH"].forEach(function (c) {
-          var perUsd = Number(rates[c]);
-          if (perUsd > 0) prices[c + "/USD"] = 1 / perUsd;
-        });
-        renderPrices();
-      })
-      .catch(function () { /* keep last known / seed values */ });
+    // Exchange ticker = actual last trade. The friendlier /v2/exchange-rates
+    // endpoint is server-cached and sits still for minutes at a time.
+    ["BTC", "ETH"].forEach(function (c) {
+      fetch("https://api.exchange.coinbase.com/products/" + c + "-USD/ticker")
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          var p = d && Number(d.price);
+          if (p > 0) { prices[c + "/USD"] = p; renderPrices(); }
+        })
+        .catch(function () { /* keep last known / seed values */ });
+    });
   }
 
   function fetchFx() {

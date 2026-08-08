@@ -34,6 +34,7 @@ input { font-family: inherit; }
   --ghost-bg:rgba(253,224,0,0.05); --ghost-border:rgba(253,224,0,0.2);
   --section-bg:rgba(253,224,0,0.04); --surface:rgba(253,224,0,0.08); --surface-border:rgba(253,224,0,0.08);
   --market-bg:rgba(253,224,0,0.08); --market-border:rgba(253,224,0,0.15);
+  --tick-flash:rgba(253,224,0,0.22);
   --net-line:#9ca3af; --net-ring-opacity:0.5;
   --glow-outer:rgba(0,0,0,0.4); --glow-inner:rgba(0,0,0,0.1);
   --glitch-glow:rgba(253,224,0,0.7); --glitch-glow-strong:rgba(253,224,0,0.9);
@@ -52,6 +53,7 @@ input { font-family: inherit; }
   --ghost-bg:rgba(255,255,255,0.3); --ghost-border:rgba(0,0,0,0.2);
   --section-bg:rgba(0,0,0,0.04); --surface:rgba(255,255,255,0.3); --surface-border:rgba(0,0,0,0.05);
   --market-bg:rgba(255,255,255,0.4); --market-border:rgba(0,0,0,0.1);
+  --tick-flash:rgba(0,0,0,0.14);
   --net-line:#4b5563; --net-ring-opacity:0.8;
   --glow-outer:rgba(253,224,0,0.4); --glow-inner:rgba(253,224,0,0.1);
   --glitch-glow:rgba(0,0,0,0.7); --glitch-glow-strong:rgba(0,0,0,0.9);
@@ -173,6 +175,13 @@ input { font-family: inherit; }
 .ticker__dot { width: 6px; height: 6px; border-radius: 9999px; background: #FDE000; }
 .ticker__pair { color: #FDE000; font-size: 12px; font-weight: 700; }
 .ticker__price { color: #ffffff; font-family: ui-monospace, 'Cascadia Mono', Menlo, monospace; font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* Live-tick flash: background pulses when a price changes, then fades out.
+   The ticker bar is always black, so its flash can stay brand-yellow; market
+   tiles sit on themed surfaces and use the per-theme token. */
+.ticker__price, .market__price { border-radius: 4px; padding: 1px 4px; margin: -1px -4px; transition: background-color 0.6s ease; }
+.ticker__price.is-tick { background-color: rgba(253, 224, 0, 0.3); transition: none; }
+.market__price.is-tick { background-color: var(--tick-flash); transition: none; }
 
 /* ---------- Section scaffolding ---------- */
 .section { padding: 112px 24px; }
@@ -328,4 +337,7 @@ input { font-family: inherit; }
   .ticker__track, .features__track, .net__orbit, .net__node, .badge__dot, .markets__live-dot { animation: none !important; }
   .features { overflow-x: auto; }
   html { scroll-behavior: auto; }
+  /* No price-flash pulse either — numbers still update, just without the blink. */
+  .ticker__price, .market__price { transition: none; }
+  .ticker__price.is-tick, .market__price.is-tick { background-color: transparent; }
 }
