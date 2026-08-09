@@ -21,7 +21,7 @@
   // Seed values so the page never shows an empty state if a source is slow/unreachable.
   var prices = {
     "BTC/USD": 65076.75, "ETH/USD": 1923.71, "TSLA/USD": 328.58, "ASML/USD": 1740.99, "SPY/USD": 773.26,
-    "NVDA/USD": 223.96, "EUR/USD": 1.1535, "WTI/USD": 78.18
+    "SPCX/USD": 133.11, "EUR/USD": 1.1535, "WTI/USD": 78.18
   };
 
   function fmt(pair, v) {

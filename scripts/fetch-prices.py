@@ -19,7 +19,7 @@ import urllib.request
 # Yahoo symbol -> pair key used by script.js / the markup.
 SYMBOLS = {
     "TSLA": "TSLA/USD",
-    "NVDA": "NVDA/USD",
+    "SPCX": "SPCX/USD",  # SpaceX — public on NASDAQ since June 2026
     "SPY": "SPY/USD",
     "ASML": "ASML/USD",
     "CL=F": "WTI/USD",  # front-month WTI futures, the usual spot proxy

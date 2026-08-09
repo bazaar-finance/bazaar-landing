@@ -76,7 +76,7 @@ the choice to `localStorage` (per device). It intentionally does *not* follow th
   swap in the friendlier `/v2/exchange-rates` endpoint — it's server-cached and sits
   still for minutes, which makes the ticker look dead. Prices flash briefly on change
   (disabled under reduced motion).
-- **Everything else (TSLA, NVDA, SPY, ASML, WTI via CL=F, EUR via EURUSD=X)** —
+- **Everything else (TSLA, SPCX, SPY, ASML, WTI via CL=F, EUR via EURUSD=X)** —
   browsers can't call Yahoo Finance (no CORS header), so `scripts/fetch-prices.py`
   runs inside the deploy workflow, which also fires on a 5-minute Sun–Fri cron
   (GitHub's floor; scheduled runs can lag a few minutes under load). It writes
