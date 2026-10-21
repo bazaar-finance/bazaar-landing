@@ -7,7 +7,7 @@ on:
   schedule:
     # Refresh prices.json. Every 5 minutes is GitHub's floor, and scheduled
     # runs can lag several minutes under load — treat this as best-effort.
-    # Sun-Fri: FX and WTI reopen Sunday evening UTC; only Saturday is dead.
+    # Sun-Fri: FX and gold reopen Sunday evening UTC; only Saturday is dead.
     # The site keeps serving between runs regardless.
     - cron: "*/5 * * * 0-5"
 
@@ -30,11 +30,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Bake equity + WTI prices into the artifact (browsers can't call Yahoo
+      # Bake equity, index and gold prices into the artifact (browsers can't call Yahoo
       # directly — no CORS). Never fails the deploy: on fetch trouble the script
       # falls back to the currently-live prices.json, and failing that the page
       # uses its seeded values.
-      - name: Fetch equity and oil prices
+      - name: Fetch equity, index and gold prices
         run: python3 scripts/fetch-prices.py
 
       - uses: actions/configure-pages@v5

@@ -17,7 +17,8 @@ bazaar-landing/
 ├── CNAME           # Custom domain for GitHub Pages — bazaar.finance
 ├── README.md
 ├── scripts/
-│   └── fetch-prices.py  # Build-time equity/oil fetch → prices.json (not committed)
+│   ├── fetch-prices.py  # Build-time equity/index/gold fetch → prices.json (not committed)
+│   └── og-image.html    # Draws assets/og-image.png (the social share image) on a canvas
 ├── .github/
 │   └── workflows/
 │       ├── deploy.yml      # Deploys every push to master + every 5 min Sun-Fri
@@ -28,6 +29,7 @@ bazaar-landing/
     ├── bazaar-logo-new.png       # Horizontal logo — light mode
     ├── bazaar-logo-icon.png      # Favicon
     ├── bazaar-emblem-yellow.png  # Center emblem of the roles wheel
+    ├── og-image.png              # 1200×630 Open Graph / Twitter card image
     └── snek.mp4                  # Plays inside the hero glitch box
 ```
 
@@ -55,11 +57,12 @@ started by hand from there.
 ## Page sections
 
 1. **Hero** — headline with the glitch box, CTAs, live price ticker
-2. **What is Bazaar** — positioning + four feature cards (horizontal marquee)
-3. **Run by independent operators** — the six-role wheel with descriptions
-4. **Every market, one protocol** — live market tiles
-5. **Waitlist** — Brevo-connected email capture
-6. **Footer** — GitHub, Docs, Contact
+2. **What is Bazaar** — positioning + ten feature cards (horizontal marquee)
+3. **Every market, one protocol** — live market tiles
+4. **Trading on Bazaar** — four trader-facing differences (no account, gasless, non-crypto markets, isolated collateral)
+5. **Run by independent operators** — the six-role wheel with descriptions
+6. **Waitlist** — "Where we are" status strip + Brevo-connected email capture
+7. **Footer** — motto, license/status line, GitHub, Docs, Contact
 
 ## How things work
 
@@ -76,7 +79,7 @@ the choice to `localStorage` (per device). It intentionally does *not* follow th
   swap in the friendlier `/v2/exchange-rates` endpoint — it's server-cached and sits
   still for minutes, which makes the ticker look dead. Prices flash briefly on change
   (disabled under reduced motion).
-- **Everything else (TSLA, SPCX, SPY, ASML, WTI via CL=F, EUR via EURUSD=X)** —
+- **Everything else (TSLA, SPCX, ASML, SPX via ^GSPC, XAU via GC=F, EUR via EURUSD=X)** —
   browsers can't call Yahoo Finance (no CORS header), so `scripts/fetch-prices.py`
   runs inside the deploy workflow, which also fires on a 5-minute Sun–Fri cron
   (GitHub's floor; scheduled runs can lag a few minutes under load). It writes
@@ -87,8 +90,10 @@ the choice to `localStorage` (per device). It intentionally does *not* follow th
   prices.json.
 
 Every pair is seeded in `script.js` and in the markup, so nothing looks empty if a
-source is slow or blocked. WTI is the front-month future (`CL=F`), the standard proxy
-for spot oil.
+source is slow or blocked. SPX is the S&P 500 index itself (`^GSPC`), not the SPY ETF,
+because Bazaar's listing rules point proposers at an index rather than its tracker. XAU is
+the front-month gold future (`GC=F`), the usual proxy for spot gold — Yahoo has no spot XAU
+symbol.
 
 **Glitch box.** The "without permission." phrase flickers with chromatic aberration every
 2–4 seconds for 400ms. Hovering it (desktop) or tapping it (touch) plays `snek.mp4` once
@@ -97,19 +102,30 @@ inline, pausing the flicker until the clip ends. A 1s cooldown prevents retrigge
 **Feature marquee.** Auto-scrolls continuously and can be grabbed and dragged left or right;
 releasing resumes the auto-scroll. Driven by `requestAnimationFrame` in `initFeatures()`.
 
+**Status strip.** The four stages in the waitlist section are static markup. The current stage
+carries `is-now`; to advance, move that class and add `is-done` to every stage behind it.
+
+**Share image.** `assets/og-image.png` is what X, Telegram, Discord and Slack show for a link.
+`scripts/og-image.html` draws it from the hero headline on a canvas — open it over HTTP (the
+logo must be same-origin), download the PNG, and overwrite the asset whenever the headline or
+logo changes. The `og:` / `twitter:` tags in `index.html` point at the live URL.
+
 **Waitlist.** Posts to Brevo through a hidden iframe, so the page never navigates away and
 the card keeps its own styling. On a valid submission the form is replaced by the
 confirmation badge and a confetti burst fires. Invalid or empty emails are blocked by native
 validation and never show the confirmation. To repoint it at a different list, swap the
 `action` URL on `#waitlistForm`.
 
-**Reduced motion.** `prefers-reduced-motion` disables the ticker, wheel rotation, pulsing
-dots, marquee, and confetti.
+**Reduced motion.** `prefers-reduced-motion` disables the ticker, wheel rotation, the pulsing
+badge and status-strip dots, marquee, and confetti.
 
 ## Editing
 
 - **Copy** — all in `index.html`. Note the feature cards appear **twice** (the marquee holds
-  two copies for a seamless loop), so card text must be changed in both places.
+  two copies for a seamless loop), so card text must be changed in both places. If the hero
+  headline changes, regenerate the share image too (see above).
+- **Cache busting** — `index.html` loads `styles.css?v=…` and `script.js?v=…`. Bump the value
+  whenever either file changes, or a returning visitor can pair fresh HTML with a stale asset.
 - **Colors** — the `--*` custom properties at the top of `styles.css`, split into
   `[data-theme="dark"]` and `[data-theme="light"]` blocks. Brand yellow is `#FDE000`.
 - **Breakpoints** — 640px, 900px, 1024px, at the bottom of `styles.css`.

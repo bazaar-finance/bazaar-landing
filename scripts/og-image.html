@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bazaar — share image generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #111; color: #ddd; font-family: system-ui, sans-serif; padding: 24px; }
+    canvas { display: block; max-width: 100%; border: 1px solid #333; margin-top: 16px; }
+    a { color: #FDE000; }
+  </style>
+</head>
+<body>
+  <p>Draws <code>assets/og-image.png</code> (1200×630) from the hero headline. Open this page over HTTP
+     (not <code>file://</code>) so the logo can be painted onto the canvas, then
+     <a id="dl" href="#" download="og-image.png">download the PNG</a> and overwrite the one in <code>assets/</code>.</p>
+  <canvas id="og" width="1200" height="630"></canvas>
+  <script>
+    async function drawOg() {
+      var W = 1200, H = 630, yellow = "#FDE000";
+      var c = document.getElementById("og");
+      var x = c.getContext("2d");
+      await document.fonts.load("800 96px Syne");
+      await document.fonts.load("700 22px Syne");
+      var logo = new Image();
+      logo.src = "../assets/bazaar-logo-yellow.png";
+      await logo.decode();
+
+      x.fillStyle = "#000000";
+      x.fillRect(0, 0, W, H);
+
+      // Logo, top-left
+      var lh = 52, lw = logo.naturalWidth * lh / logo.naturalHeight;
+      x.drawImage(logo, 72, 64, lw, lh);
+
+      // Headline: two yellow lines, then the black-on-yellow box, like the hero.
+      // Shrink until the boxed line fits inside the side margins.
+      var box = "without permission.", size = 96;
+      x.font = "800 " + size + "px Syne";
+      while (x.measureText(box).width + 56 > W - 144 && size > 60) { size -= 2; x.font = "800 " + size + "px Syne"; }
+      var lineH = Math.round(size * 1.08), top = 232;
+      x.fillStyle = yellow;
+      x.textAlign = "left";
+      x.textBaseline = "alphabetic";
+      x.fillText("Trade anything,", 72, top);
+      x.fillText("anytime,", 72, top + lineH);
+
+      var padX = 28, boxH = Math.round(size * 1.22);
+      var bw = x.measureText(box).width + padX * 2;
+      x.save();
+      x.translate(72 + bw / 2, top + lineH * 2 - 10);
+      x.rotate(-2 * Math.PI / 180);
+      x.fillStyle = yellow;
+      x.fillRect(-bw / 2, -boxH / 2, bw, boxH);
+      x.fillStyle = "#000000";
+      x.textAlign = "center";
+      x.textBaseline = "middle";
+      x.fillText(box, 0, size * 0.06);
+      x.restore();
+
+      // Footer line
+      x.font = "700 22px Syne";
+      x.textBaseline = "alphabetic";
+      x.fillStyle = "rgba(253,224,0,0.6)";
+      x.textAlign = "left";
+      x.fillText("Permissionless perpetual futures on anything with a price feed", 72, H - 48);
+      x.textAlign = "right";
+      x.fillText("bazaar.finance", W - 72, H - 48);
+      return c;
+    }
+    drawOg().then(function (c) { document.getElementById("dl").href = c.toDataURL("image/png"); });
+  </script>
+</body>
+</html>
