@@ -101,8 +101,9 @@ inline, pausing the flicker until the clip ends. A 1s cooldown prevents retrigge
 **Feature marquee.** Auto-scrolls continuously and can be grabbed and dragged left or right;
 releasing resumes the auto-scroll. Driven by `requestAnimationFrame` in `initFeatures()`.
 
-**Status strip.** The four stages in the waitlist section are static markup. The current stage
-carries `is-now`; to advance, move that class and add `is-done` to every stage behind it.
+**Status strip.** The four stages in the waitlist section are static markup. Finished stages carry
+`is-done` (filled dot); the current one carries `is-now` (a blinking hollow ring). To advance, move
+`is-now` forward and add `is-done` to the stage it left.
 
 **Share image.** `assets/og-image.png` is what X, Telegram, Discord and Slack show for a link.
 `scripts/og-image.html` draws it from the hero headline on a canvas — open it over HTTP (the
