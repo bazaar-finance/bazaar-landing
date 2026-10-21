@@ -49,9 +49,6 @@
     document.querySelectorAll("[data-ticker]").forEach(function (el) {
       setPrice(el, el.getAttribute("data-ticker"));
     });
-    document.querySelectorAll("[data-market-price]").forEach(function (el) {
-      setPrice(el, el.getAttribute("data-market-price"));
-    });
   }
 
   function fetchCrypto() {

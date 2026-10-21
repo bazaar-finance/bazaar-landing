@@ -58,11 +58,10 @@ started by hand from there.
 
 1. **Hero** — headline with the glitch box, CTAs, live price ticker
 2. **What is Bazaar** — positioning + ten feature cards (horizontal marquee)
-3. **Every market, one protocol** — live market tiles
-4. **Trading on Bazaar** — four trader-facing differences (no account, gasless, non-crypto markets, isolated collateral)
-5. **Run by independent operators** — the six-role wheel with descriptions
-6. **Waitlist** — "Where we are" status strip + Brevo-connected email capture
-7. **Footer** — motto, license/status line, GitHub, Docs, Contact
+3. **Trading on Bazaar** — four trader-facing differences (no account, gasless, non-crypto markets, isolated collateral)
+4. **Run by independent operators** — the six-role wheel with descriptions
+5. **Waitlist** — "Where we are" status strip + Brevo-connected email capture
+6. **Footer** — motto, license/status line, GitHub, Docs, Contact
 
 ## How things work
 
@@ -71,7 +70,7 @@ markup, so there's no flash before CSS loads. The navbar toggle switches to ligh
 the choice to `localStorage` (per device). It intentionally does *not* follow the OS
 `prefers-color-scheme` setting.
 
-**Live prices.** Two keyless sources feed the hero ticker and the market tiles
+**Live prices.** Two keyless sources feed the hero ticker
 (Pyth Hermes was dropped in August 2026 when it moved behind paid API keys):
 
 - **Crypto (BTC, ETH)** — Coinbase Exchange ticker (`/products/{pair}-USD/ticker`),

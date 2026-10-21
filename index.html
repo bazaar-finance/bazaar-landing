@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <!-- Version query on both assets: bump it whenever styles.css or script.js changes, so a visitor
        never pairs fresh HTML with a stale cached script or stylesheet during the CDN's 10-minute window. -->
-  <link rel="stylesheet" href="styles.css?v=20261016.3" />
+  <link rel="stylesheet" href="styles.css?v=20261021" />
   <!-- Set theme before first paint to avoid a flash -->
   <script>
     try {
@@ -210,26 +210,8 @@
     </div>
   </section>
 
-  <!-- ===================== Markets ===================== -->
-  <section class="section section--band">
-    <div class="container">
-      <div class="sec__head">
-        <h2 class="sec__title">Every market, one protocol</h2>
-        <p class="sec__sub sec__sub--md">Any asset with a Pyth feed can be listed. The book never closes.</p>
-      </div>
-      <div class="markets">
-        <div class="market"><span class="market__tag">Crypto</span><div class="market__price" data-market-price="BTC/USD">$68,975.50</div><div class="market__pair">BTC/USD</div></div>
-        <div class="market"><span class="market__tag">Index</span><div class="market__price" data-market-price="SPX/USD">$7744.06</div><div class="market__pair">SPX/USD</div></div>
-        <div class="market"><span class="market__tag">International stock</span><div class="market__price" data-market-price="ASML/USD">$1710.02</div><div class="market__pair">ASML/USD</div></div>
-        <div class="market"><span class="market__tag">Stock</span><div class="market__price" data-market-price="SPCX/USD">$133.11</div><div class="market__pair">SPCX/USD</div></div>
-        <div class="market"><span class="market__tag">Commodity</span><div class="market__price" data-market-price="XAU/USD">$4182.70</div><div class="market__pair">XAU/USD</div></div>
-        <div class="market"><span class="market__tag">Forex</span><div class="market__price" data-market-price="EUR/USD">$1.1445</div><div class="market__pair">EUR/USD</div></div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===================== Trading ===================== -->
-  <section class="section">
+  <section class="section section--band">
     <div class="container">
       <div class="sec__head">
         <h2 class="sec__title">Trading on Bazaar</h2>
@@ -237,7 +219,7 @@
       </div>
       <div class="perks">
         <div class="perk"><h3 class="perk__title">No account</h3><p class="perk__desc">The contracts have no sign-up, KYC or region block — any wallet with USDC on Arbitrum can trade. Individual frontends and integrators may set their own rules.</p></div>
-        <div class="perk"><h3 class="perk__title">No ETH needed</h3><p class="perk__desc">Sign your trades and let a relayer submit them. Even the USDC approval rides on a signature, so you never hold gas.</p></div>
+        <div class="perk"><h3 class="perk__title">No ETH needed</h3><p class="perk__desc">Sign your trades and let a relayer submit them, so you never need to hold gas.</p></div>
         <div class="perk"><h3 class="perk__title">Markets you won't find elsewhere</h3><p class="perk__desc">Anyone can list, so long-tail assets the major perp exchanges skip get markets too — alongside stocks, FX and indices that trade around the clock.</p></div>
         <div class="perk"><h3 class="perk__title">Isolated collateral</h3><p class="perk__desc">Each market holds its own collateral, so a blowup in one can never touch your balance in another.</p></div>
       </div>
@@ -245,7 +227,7 @@
   </section>
 
   <!-- ===================== Network ===================== -->
-  <section class="section section--band section--fit">
+  <section class="section section--fit">
     <div class="container">
       <div class="sec__head">
         <h2 class="sec__title">Run by independent operators, not a team</h2>
@@ -347,7 +329,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20261016.3" defer></script>
+  <script src="script.js?v=20261021" defer></script>
 
   <!-- GoatCounter — cookieless, no consent banner required. Counts the pageview on load;
        click events are wired up in initAnalytics() in script.js. -->
