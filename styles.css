@@ -179,18 +179,20 @@ input { font-family: inherit; }
 
 /* ---------- Section scaffolding ---------- */
 .section { padding: 112px 24px; }
-.section--fit { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+/* Fit-to-screen sections fill the viewport below the fixed 56px nav, so an anchor jump (which
+   lands them under the nav) centres their content in what is actually visible. */
+.section--fit { min-height: calc(100vh - 56px); min-height: calc(100svh - 56px); display: flex; flex-direction: column; justify-content: center; }
 .section--band {
   background: var(--section-bg);
   border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
   transition: background-color 0.5s, border-color 0.5s;
 }
 .eyebrow { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted-soft); transition: color 0.5s; }
-.eyebrow--center { text-align: center; margin-bottom: 48px; }
+/* The highlights heading: brighter and larger than the other eyebrows so it reads as a header. */
+.eyebrow--center { text-align: center; margin-bottom: 48px; font-size: 15px; font-weight: 800; letter-spacing: 0.1em; color: var(--fg); }
 
 /* What is Bazaar */
-.wi__intro { text-align: center; max-width: 672px; margin: 0 auto 56px; }
-.wi__intro .eyebrow { margin-bottom: 16px; }
+.wi__intro { text-align: center; max-width: 672px; margin: 0 auto 89px; }
 .wi__title { font-size: 30px; font-weight: 900; letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 20px; }
 .wi__lead { font-size: 18px; line-height: 1.625; color: var(--muted-strong); transition: color 0.5s; }
 
@@ -339,19 +341,16 @@ input { font-family: inherit; }
   .section, .waitlist { padding-top: 144px; padding-bottom: 144px; }
   .net__grid { grid-template-columns: 1fr 1fr; }
 }
+/* Fit sections centre their content themselves, so they only need a modest equal buffer;
+   the regular 112-144px would push the content down past the visible centre. */
+.section--fit { padding-top: 64px; padding-bottom: 64px; }
 
 /* Short/small screens: desktop-scale 112px padding makes the fit-to-screen sections taller
    than the viewport, so their centered content gets clipped. Trim it so they actually fit. */
 @media (max-width: 640px), (max-height: 900px) {
-  .section--fit {
-    padding-top: 32px; padding-bottom: 32px;
-    /* Anchored sections sit 56px down (under the fixed nav), so subtract it or the
-       bottom of the content falls past the fold. */
-    min-height: calc(100vh - 56px);
-    min-height: calc(100svh - 56px);
-  }
+  .section--fit { padding-top: 32px; padding-bottom: 32px; }
   /* Tighten the two biggest internal gaps so the content clears the fold. */
-  .section--fit .wi__intro { margin-bottom: 24px; }
+  .section--fit .wi__intro { margin-bottom: 57px; }
   .section--fit .eyebrow--center { margin-bottom: 24px; }
 }
 

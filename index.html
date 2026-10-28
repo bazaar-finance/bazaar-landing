@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <!-- Version query on both assets: bump it whenever styles.css or script.js changes, so a visitor
        never pairs fresh HTML with a stale cached script or stylesheet during the CDN's 10-minute window. -->
-  <link rel="stylesheet" href="styles.css?v=20261021.3" />
+  <link rel="stylesheet" href="styles.css?v=20261027.5" />
   <!-- Set theme before first paint to avoid a flash -->
   <script>
     try {
@@ -118,7 +118,6 @@
   <section id="what-is-bazaar" class="section section--fit">
     <div class="container">
       <div class="wi__intro">
-        <p class="eyebrow">What is Bazaar</p>
         <h2 class="wi__title">A permissionless protocol, not a company.</h2>
         <p class="wi__lead">Bazaar is the first ever fully permissionless derivatives marketplace, where perpetual futures on almost any asset with an on-chain price feed can be traded by anyone, against anyone. Built on Arbitrum, Bazaar is immutable and unowned. A marketplace for everything can only stay neutral if <span class="hl">no one can say no</span>.</p>
       </div>
@@ -131,7 +130,7 @@
           </div>
           <div class="card-feature">
             <h3 class="card-feature__title">Censorship resistant</h3>
-            <p class="card-feature__desc">No company stands between you and the market. Nobody can block your order, push it to the back of the line, or take the market offline.</p>
+            <p class="card-feature__desc">No company and no protocol-level sequencer stand between you and the market. Nobody can block your order, push it to the back of the line, or take the market offline.</p>
           </div>
           <div class="card-feature">
             <h3 class="card-feature__title">No house counterparty</h3>
@@ -143,15 +142,15 @@
           </div>
           <div class="card-feature">
             <h3 class="card-feature__title">Built for real-world assets</h3>
-            <p class="card-feature__desc">Stocks and FX don't trade around the clock, and companies get acquired. Bazaar markets keep running through closures and cash-settle cleanly when an asset stops existing.</p>
+            <p class="card-feature__desc">Stocks and FX don't trade around the clock. Bazaar markets keep running through closures, and cash-settle cleanly after a merger, split, delisting or other major corporate action.</p>
           </div>
           <div class="card-feature">
             <h3 class="card-feature__title">Risk sets itself</h3>
-            <p class="card-feature__desc">No committee sets leverage or fees. Each market measures its own risk and adjusts its margin, insurance and fees automatically.</p>
+            <p class="card-feature__desc">No committee or governance sets leverage or fees. Each market measures its own risk and adjusts its margin requirements, insurance threshold and fees automatically.</p>
           </div>
           <div class="card-feature">
             <h3 class="card-feature__title">Every role is open</h3>
-            <p class="card-feature__desc">List a market, run a bot, back the insurance fund, build a frontend. Every job the exchange needs is open to anyone — and every one pays.</p>
+            <p class="card-feature__desc">List a market, run a bot, back the insurance fund, build a frontend. Every job the exchange needs is open to anyone, and each one is rewarded.</p>
           </div>
           <div class="card-feature">
             <h3 class="card-feature__title">Super-low fees</h3>
@@ -171,7 +170,7 @@
           </div>
           <div class="card-feature" aria-hidden="true">
             <h3 class="card-feature__title">Censorship resistant</h3>
-            <p class="card-feature__desc">No company stands between you and the market. Nobody can block your order, push it to the back of the line, or take the market offline.</p>
+            <p class="card-feature__desc">No company and no protocol-level sequencer stand between you and the market. Nobody can block your order, push it to the back of the line, or take the market offline.</p>
           </div>
           <div class="card-feature" aria-hidden="true">
             <h3 class="card-feature__title">No house counterparty</h3>
@@ -183,15 +182,15 @@
           </div>
           <div class="card-feature" aria-hidden="true">
             <h3 class="card-feature__title">Built for real-world assets</h3>
-            <p class="card-feature__desc">Stocks and FX don't trade around the clock, and companies get acquired. Bazaar markets keep running through closures and cash-settle cleanly when an asset stops existing.</p>
+            <p class="card-feature__desc">Stocks and FX don't trade around the clock. Bazaar markets keep running through closures, and cash-settle cleanly after a merger, split, delisting or other major corporate action.</p>
           </div>
           <div class="card-feature" aria-hidden="true">
             <h3 class="card-feature__title">Risk sets itself</h3>
-            <p class="card-feature__desc">No committee sets leverage or fees. Each market measures its own risk and adjusts its margin, insurance and fees automatically.</p>
+            <p class="card-feature__desc">No committee or governance sets leverage or fees. Each market measures its own risk and adjusts its margin requirements, insurance threshold and fees automatically.</p>
           </div>
           <div class="card-feature" aria-hidden="true">
             <h3 class="card-feature__title">Every role is open</h3>
-            <p class="card-feature__desc">List a market, run a bot, back the insurance fund, build a frontend. Every job the exchange needs is open to anyone — and every one pays.</p>
+            <p class="card-feature__desc">List a market, run a bot, back the insurance fund, build a frontend. Every job the exchange needs is open to anyone, and each one is rewarded.</p>
           </div>
           <div class="card-feature" aria-hidden="true">
             <h3 class="card-feature__title">Super-low fees</h3>
@@ -211,7 +210,7 @@
   </section>
 
   <!-- ===================== Trading ===================== -->
-  <section class="section section--band">
+  <section class="section section--band section--fit">
     <div class="container">
       <div class="sec__head">
         <h2 class="sec__title">Trading on Bazaar</h2>
@@ -219,7 +218,7 @@
       </div>
       <div class="perks">
         <div class="perk"><h3 class="perk__title">No account</h3><p class="perk__desc">The contracts have no sign-up, KYC or region block — any wallet with USDC on Arbitrum can trade. Individual frontends and integrators may set their own rules.</p></div>
-        <div class="perk"><h3 class="perk__title">No ETH needed</h3><p class="perk__desc">Sign your trades and let a relayer submit them, so you never need to hold gas.</p></div>
+        <div class="perk"><h3 class="perk__title">No ETH needed</h3><p class="perk__desc">Sign your trades and let a relayer submit them, so USDC is the only thing you ever need to trade.</p></div>
         <div class="perk"><h3 class="perk__title">Markets you won't find elsewhere</h3><p class="perk__desc">Anyone can list, so long-tail assets the major perp exchanges skip get markets too — alongside stocks, FX and indices that trade around the clock.</p></div>
         <div class="perk"><h3 class="perk__title">Isolated collateral</h3><p class="perk__desc">Each market holds its own collateral, so a blowup in one can never touch your balance in another.</p></div>
       </div>
