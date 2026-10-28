@@ -357,6 +357,46 @@
     track.addEventListener("pointercancel", endDrag);
   }
 
+  /* ---------- Scroll reveal ---------- */
+  // Elements marked data-reveal fade up the first time they enter the viewport. The hiding
+  // class goes on <html> only here, so a failed script or reduced motion leaves everything visible.
+  function initReveal() {
+    var els = document.querySelectorAll("[data-reveal]");
+    if (!els.length || !("IntersectionObserver" in window)) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.documentElement.classList.add("has-reveal");
+    var pending = [].slice.call(els);
+    function reveal(el) {
+      el.classList.add("is-revealed");
+      io.unobserve(el);
+      pending = pending.filter(function (x) { return x !== el; });
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) reveal(e.target); });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    els.forEach(function (el) { io.observe(el); });
+
+    // Safety net: a fast fling or an anchor jump can carry an element past the viewport between
+    // observer checks. Anything already on screen or scrolled past is revealed outright, so no
+    // content can stay hidden.
+    var queued = false;
+    function sweep() {
+      queued = false;
+      var limit = window.innerHeight;
+      pending.slice().forEach(function (el) {
+        if (el.getBoundingClientRect().top < limit) reveal(el);
+      });
+      if (!pending.length) window.removeEventListener("scroll", onScroll);
+    }
+    function onScroll() {
+      if (queued) return;
+      queued = true;
+      setTimeout(sweep, 150);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("load", sweep);
+  }
+
   /* ---------- Analytics ---------- */
   // GoatCounter events. These are counted separately from pageviews and show up under
   // their own paths in the dashboard. count.js loads async and is a routine ad-block
@@ -391,6 +431,7 @@
     initGlitch();
     initWaitlist();
     initFeatures();
+    initReveal();
     initTicker();
     renderPrices();
     fetchCrypto();

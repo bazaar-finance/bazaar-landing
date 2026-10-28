@@ -101,6 +101,14 @@ inline, pausing the flicker until the clip ends. A 1s cooldown prevents retrigge
 **Feature marquee.** Auto-scrolls continuously and can be grabbed and dragged left or right;
 releasing resumes the auto-scroll. Driven by `requestAnimationFrame` in `initFeatures()`.
 
+**Icons.** Every highlight card and "Trading on Bazaar" card has a small line icon. They are `<symbol>`s in one
+inline sprite at the top of `<body>`, referenced with `<use href="#i-…">`, so a card icon is one
+line and styles (stroke, color) come from the card.
+
+**Scroll reveal.** Elements marked `data-reveal` fade up the first time they scroll into view;
+an optional `--reveal-delay` staggers a group. `initReveal()` adds the hiding class to `<html>`
+itself, so with JS off or reduced motion on, everything is simply visible.
+
 **Status strip.** The four stages in the waitlist section are static markup. Finished stages carry
 `is-done` (filled dot); the current one carries `is-now` (a blinking hollow ring). To advance, move
 `is-now` forward and add `is-done` to the stage it left.
@@ -117,7 +125,7 @@ validation and never show the confirmation. To repoint it at a different list, s
 `action` URL on `#waitlistForm`.
 
 **Reduced motion.** `prefers-reduced-motion` disables the ticker, wheel rotation, the pulsing
-badge and status-strip dots, marquee, and confetti.
+badge and status-strip dots, the status-strip flow, marquee, scroll reveal, and confetti.
 
 ## Editing
 
