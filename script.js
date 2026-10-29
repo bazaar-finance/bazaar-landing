@@ -397,6 +397,92 @@
     window.addEventListener("load", sweep);
   }
 
+  /* ---------- Node-network backdrop ---------- */
+  // A faint, slowly drifting mesh of nodes behind the "Trading on Bazaar" section: nodes link
+  // whenever they drift within reach of each other, so the network keeps re-forming with no hub.
+  // It runs only while the section is on screen and the tab is visible, and draws a single still
+  // frame under reduced motion.
+  function initMesh() {
+    var canvas = document.querySelector(".mesh-bg");
+    if (!canvas || !canvas.getContext) return;
+    var section = canvas.parentElement;
+    var ctx = canvas.getContext("2d");
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var LINK = 150;          // px: nodes closer than this are joined
+    var SPEED = 12;          // px per second
+    var NODE_ALPHA = 0.32, LINE_ALPHA = 0.16;
+    var w = 0, h = 0, nodes = [], rgb = "253,224,0";
+    var running = false, onScreen = false, lastT = 0, rafId = 0;
+
+    function readColor() {
+      var hex = getComputedStyle(document.documentElement).getPropertyValue("--fg").trim();
+      var m = /^#?([0-9a-f]{6})$/i.exec(hex);
+      if (!m) return;
+      var n = parseInt(m[1], 16);
+      rgb = [(n >> 16) & 255, (n >> 8) & 255, n & 255].join(",");
+    }
+
+    function size() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = section.clientWidth; h = section.clientHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var count = Math.max(14, Math.min(60, Math.round((w * h) / 22000)));
+      while (nodes.length < count) {
+        var a = Math.random() * Math.PI * 2;
+        nodes.push({ x: Math.random() * w, y: Math.random() * h, vx: Math.cos(a) * SPEED, vy: Math.sin(a) * SPEED });
+      }
+      nodes.length = count;
+      nodes.forEach(function (p) { p.x = Math.min(p.x, w); p.y = Math.min(p.y, h); });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineWidth = 1;
+      for (var i = 0; i < nodes.length; i++) {
+        for (var j = i + 1; j < nodes.length; j++) {
+          var dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d > LINK) continue;
+          ctx.strokeStyle = "rgba(" + rgb + "," + (LINE_ALPHA * (1 - d / LINK)).toFixed(3) + ")";
+          ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+        }
+      }
+      ctx.fillStyle = "rgba(" + rgb + "," + NODE_ALPHA + ")";
+      nodes.forEach(function (p) { ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill(); });
+    }
+
+    function step(t) {
+      if (!running) return;
+      var dt = lastT ? Math.min((t - lastT) / 1000, 0.05) : 0;
+      lastT = t;
+      nodes.forEach(function (p) {
+        p.x += p.vx * dt; p.y += p.vy * dt;
+        if (p.x < 0 || p.x > w) { p.vx = -p.vx; p.x = Math.max(0, Math.min(w, p.x)); }
+        if (p.y < 0 || p.y > h) { p.vy = -p.vy; p.y = Math.max(0, Math.min(h, p.y)); }
+      });
+      draw();
+      rafId = requestAnimationFrame(step);
+    }
+
+    function update() {
+      var should = onScreen && !document.hidden && !reduced;
+      if (should && !running) { running = true; lastT = 0; rafId = requestAnimationFrame(step); }
+      else if (!should && running) { running = false; cancelAnimationFrame(rafId); }
+    }
+
+    readColor(); size(); draw();
+    if ("ResizeObserver" in window) new ResizeObserver(function () { size(); draw(); }).observe(section);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) { onScreen = entries[0].isIntersecting; update(); }).observe(section);
+    } else { onScreen = true; update(); }
+    document.addEventListener("visibilitychange", update);
+    // The theme toggle swaps --fg; re-read it so the mesh follows dark/light.
+    var toggle = document.getElementById("themeToggle");
+    if (toggle) toggle.addEventListener("click", function () { setTimeout(function () { readColor(); draw(); }, 0); });
+  }
+
   /* ---------- Analytics ---------- */
   // GoatCounter events. These are counted separately from pageviews and show up under
   // their own paths in the dashboard. count.js loads async and is a routine ad-block
@@ -432,6 +518,7 @@
     initWaitlist();
     initFeatures();
     initReveal();
+    initMesh();
     initTicker();
     renderPrices();
     fetchCrypto();

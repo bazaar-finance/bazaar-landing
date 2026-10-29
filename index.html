@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <!-- Version query on both assets: bump it whenever styles.css or script.js changes, so a visitor
        never pairs fresh HTML with a stale cached script or stylesheet during the CDN's 10-minute window. -->
-  <link rel="stylesheet" href="styles.css?v=20261028.4" />
+  <link rel="stylesheet" href="styles.css?v=20261028.7" />
   <!-- Set theme before first paint to avoid a flash -->
   <script>
     try {
@@ -54,7 +54,7 @@
     <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
     <symbol id="i-nogov" viewBox="0 0 24 24"><path d="M12 3l8 6H4z"/><path d="M3 21h18M6 12v6M10 12v6M14 12v6M18 12v6"/><path d="M2 2l20 20"/></symbol>
-    <symbol id="i-nohouse" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/><path d="M2 2l20 20"/></symbol>
+    <symbol id="i-nohouse" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M2 2l20 20"/></symbol>
     <symbol id="i-mesh" viewBox="0 0 24 24"><path d="M4 5L14 3.5M14 3.5L20.5 10M20.5 10L16.5 20.5M16.5 20.5L5 19M5 19L4 5M11 12L4 5M11 12L20.5 10M11 12L5 19"/><circle cx="4" cy="5" r="1.8" fill="currentColor"/><circle cx="14" cy="3.5" r="1.8" fill="currentColor"/><circle cx="20.5" cy="10" r="1.8" fill="currentColor"/><circle cx="16.5" cy="20.5" r="1.8" fill="currentColor"/><circle cx="5" cy="19" r="1.8" fill="currentColor"/><circle cx="11" cy="12" r="1.8" fill="currentColor"/></symbol>
   </svg>
 
@@ -155,7 +155,7 @@
           <div class="card-feature">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-nohouse"/></svg>
             <h3 class="card-feature__title">No house counterparty</h3>
-            <p class="card-feature__desc">Every trade is trader against trader on an open order book. No house, vault or market-making pool takes the other side of your position.</p>
+            <p class="card-feature__desc">Trades match trader against trader on an open order book — no house or market-making pool. The insurance fund only holds liquidated positions until they're sold back into the book.</p>
           </div>
           <div class="card-feature">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-listplus"/></svg>
@@ -205,7 +205,7 @@
           <div class="card-feature" aria-hidden="true">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-nohouse"/></svg>
             <h3 class="card-feature__title">No house counterparty</h3>
-            <p class="card-feature__desc">Every trade is trader against trader on an open order book. No house, vault or market-making pool takes the other side of your position.</p>
+            <p class="card-feature__desc">Trades match trader against trader on an open order book — no house or market-making pool. The insurance fund only holds liquidated positions until they're sold back into the book.</p>
           </div>
           <div class="card-feature" aria-hidden="true">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-listplus"/></svg>
@@ -248,7 +248,8 @@
   </section>
 
   <!-- ===================== Trading ===================== -->
-  <section class="section section--band section--fit">
+  <section class="section section--band section--fit has-mesh">
+    <canvas class="mesh-bg" aria-hidden="true"></canvas>
     <div class="container">
       <div class="sec__head" data-reveal>
         <h2 class="sec__title">Trading on Bazaar</h2>
@@ -366,7 +367,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20261028.2" defer></script>
+  <script src="script.js?v=20261028.3" defer></script>
 
   <!-- GoatCounter — cookieless, no consent banner required. Counts the pageview on load;
        click events are wired up in initAnalytics() in script.js. -->

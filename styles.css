@@ -27,7 +27,7 @@ input { font-family: inherit; }
 /* ---------- Theme tokens ---------- */
 :root, [data-theme="dark"] {
   color-scheme: dark;
-  --bg:#000000; --fg:#FDE000; --card-bg:#FDE000; --card-fg:#000000; --card-desc:rgba(0,0,0,0.6);
+  --bg:#000000; --fg:#FDE000; --card-bg:#FDE000; --card-fg:#000000; --card-desc:rgba(0,0,0,0.7);
   --nav-bg:rgba(0,0,0,0.9); --border:rgba(253,224,0,0.1);
   --muted:rgba(253,224,0,0.6); --muted-strong:rgba(253,224,0,0.7); --muted-soft:rgba(253,224,0,0.5);
   --shadow:rgba(253,224,0,0.2); --shadow-soft:rgba(253,224,0,0.15);
@@ -247,6 +247,10 @@ input { font-family: inherit; }
 .role__desc { font-size: 12px; line-height: 1.625; color: var(--muted); }
 
 /* ---------- Trading on Bazaar ---------- */
+/* Faint drifting node network behind the section (drawn by initMesh in script.js). */
+.has-mesh { position: relative; overflow: hidden; }
+.mesh-bg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.has-mesh > .container { position: relative; z-index: 1; }
 .perks { display: grid; grid-template-columns: 1fr; gap: 16px; }
 .perk {
   border-radius: 16px; padding: 24px;

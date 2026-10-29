@@ -109,6 +109,11 @@ line and styles (stroke, color) come from the card.
 an optional `--reveal-delay` staggers a group. `initReveal()` adds the hiding class to `<html>`
 itself, so with JS off or reduced motion on, everything is simply visible.
 
+**Node-network backdrop.** A faint mesh of drifting nodes sits behind "Trading on Bazaar" on a
+`<canvas class="mesh-bg">`, drawn by `initMesh()` in the theme's accent color. It runs only while
+the section is on screen and the tab is visible, and draws one still frame under reduced motion.
+Density, speed, link distance and opacity are the constants at the top of `initMesh()`.
+
 **Status strip.** The four stages in the waitlist section are static markup. Finished stages carry
 `is-done` (filled dot); the current one carries `is-now` (a blinking hollow ring). To advance, move
 `is-now` forward and add `is-done` to the stage it left.
