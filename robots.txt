@@ -1,0 +1,5 @@
+# Everything public is crawlable except the build helpers in /scripts/.
+User-agent: *
+Disallow: /scripts/
+
+Sitemap: https://bazaar.finance/sitemap.xml

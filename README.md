@@ -15,6 +15,8 @@ bazaar-landing/
 ├── styles.css      # Styles, theme tokens, responsive breakpoints
 ├── script.js       # Live prices, theme toggle, glitch, drag marquee, confetti
 ├── CNAME           # Custom domain for GitHub Pages — bazaar.finance
+├── robots.txt      # Allows crawling except /scripts/; points at the sitemap
+├── sitemap.xml     # One-page sitemap for search consoles
 ├── README.md
 ├── scripts/
 │   ├── fetch-prices.py  # Build-time equity/index/gold fetch → prices.json (not committed)
@@ -142,6 +144,14 @@ badge and status-strip dots, the status-strip flow, marquee, scroll reveal, and 
 - **Colors** — the `--*` custom properties at the top of `styles.css`, split into
   `[data-theme="dark"]` and `[data-theme="light"]` blocks. Brand yellow is `#FDE000`.
 - **Breakpoints** — 640px, 900px, 1024px, at the bottom of `styles.css`.
+
+## Search engines
+
+`robots.txt` lets crawlers index the site but keeps the build helpers in `/scripts/` out, and
+points at `sitemap.xml`. `index.html` carries a canonical tag for `https://bazaar.finance/`; the
+http, www and github.io addresses all 301 to it. Submit the sitemap in Google Search Console and
+Bing Webmaster Tools (both need a DNS TXT record to verify the domain). Bump `<lastmod>` in
+`sitemap.xml` after substantial copy changes.
 
 ## Outbound links
 
