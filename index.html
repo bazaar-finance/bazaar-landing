@@ -47,15 +47,15 @@
     <symbol id="i-gridplus" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></symbol>
     <symbol id="i-shieldsplit" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M12 3v18"/></symbol>
     <symbol id="i-chain" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7L11.8 5.2"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
-    <symbol id="i-shieldcheck" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
     <symbol id="i-listplus" viewBox="0 0 24 24"><path d="M3 6h13M3 12h9M3 18h9"/><path d="M18 13v8M14 17h8"/></symbol>
     <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M15 9h3a2 2 0 0 1 2 2v10"/><path d="M2 21h20"/><path d="M8 7h3M8 11h3M8 15h3"/></symbol>
     <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 17a8 8 0 0 1 16 0"/><path d="M12 17l4-5"/><circle cx="12" cy="17" r="1"/></symbol>
     <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
     <symbol id="i-nogov" viewBox="0 0 24 24"><path d="M12 3l8 6H4z"/><path d="M3 21h18M6 12v6M10 12v6M14 12v6M18 12v6"/><path d="M2 2l20 20"/></symbol>
-    <symbol id="i-nohouse" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M2 2l20 20"/></symbol>
     <symbol id="i-mesh" viewBox="0 0 24 24"><path d="M4 5L14 3.5M14 3.5L20.5 10M20.5 10L16.5 20.5M16.5 20.5L5 19M5 19L4 5M11 12L4 5M11 12L20.5 10M11 12L5 19"/><circle cx="4" cy="5" r="1.8" fill="currentColor"/><circle cx="14" cy="3.5" r="1.8" fill="currentColor"/><circle cx="20.5" cy="10" r="1.8" fill="currentColor"/><circle cx="16.5" cy="20.5" r="1.8" fill="currentColor"/><circle cx="5" cy="19" r="1.8" fill="currentColor"/><circle cx="11" cy="12" r="1.8" fill="currentColor"/></symbol>
+    <symbol id="i-umbrella" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 18 0c-1.5-1.2-3-1.2-4.5 0-1.5-1.2-3-1.2-4.5 0-1.5-1.2-3-1.2-4.5 0-1.5-1.2-3-1.2-4.5 0z"/><path d="M12 3v0M12 12v6.5a2 2 0 0 1-4 0"/></symbol>
+    <symbol id="i-tower" viewBox="0 0 24 24"><circle cx="12" cy="8" r="2"/><path d="M12 10v11M9 21h6"/><path d="M8.5 4.5a5 5 0 0 0 0 7M15.5 4.5a5 5 0 0 1 0 7"/><path d="M5.5 2a9 9 0 0 0 0 12M18.5 2a9 9 0 0 1 0 12"/></symbol>
   </svg>
 
   <!-- ===================== Nav ===================== -->
@@ -148,19 +148,14 @@
             <p class="card-feature__desc">Orders are matched on-chain the moment they arrive. There's no hidden matching engine and no sequencer to trust — the contract decides who gets filled, and at what price.</p>
           </div>
           <div class="card-feature">
-            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-shieldcheck"/></svg>
-            <h3 class="card-feature__title">Censorship resistant</h3>
-            <p class="card-feature__desc">No company and no protocol-level sequencer stand between you and the market. Nobody can block your order, push it to the back of the line, or take the market offline.</p>
-          </div>
-          <div class="card-feature">
-            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-nohouse"/></svg>
-            <h3 class="card-feature__title">No house counterparty</h3>
-            <p class="card-feature__desc">Trades match trader against trader on an open order book — no house or market-making pool. The insurance fund only holds liquidated positions until they're sold back into the book.</p>
-          </div>
-          <div class="card-feature">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-listplus"/></svg>
             <h3 class="card-feature__title">Open listing</h3>
             <p class="card-feature__desc">Anyone can list a market, with no cap on how many. Stocks, crypto, commodities, FX — and the long-tail assets major perp exchanges skip. If it has an on-chain price feed, it can trade here.</p>
+          </div>
+          <div class="card-feature">
+            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-tag"/></svg>
+            <h3 class="card-feature__title">Super-low fees</h3>
+            <p class="card-feature__desc">In calm, healthy markets, makers and takers each pay just 0.5 bp — 50 cents on a $10,000 trade. Only taker fees rise, and only when a market turns risky.</p>
           </div>
           <div class="card-feature">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-building"/></svg>
@@ -168,19 +163,9 @@
             <p class="card-feature__desc">Stocks and FX don't trade around the clock. Bazaar markets keep running through closures, and cash-settle cleanly after a merger, split, delisting or other major corporate action.</p>
           </div>
           <div class="card-feature">
-            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-gauge"/></svg>
-            <h3 class="card-feature__title">Risk sets itself</h3>
-            <p class="card-feature__desc">No committee or governance sets leverage or fees. Each market measures its own risk and adjusts its margin requirements, insurance threshold and fees automatically.</p>
-          </div>
-          <div class="card-feature">
-            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-mesh"/></svg>
-            <h3 class="card-feature__title">Every role is open</h3>
-            <p class="card-feature__desc">List a market, run a bot, back the insurance fund, build a frontend. Every job the exchange needs is open to anyone, and each one is rewarded.</p>
-          </div>
-          <div class="card-feature">
-            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-tag"/></svg>
-            <h3 class="card-feature__title">Super-low fees</h3>
-            <p class="card-feature__desc">In calm, healthy markets, makers and takers each pay just 0.5 bp — 50 cents on a $10,000 trade. Only taker fees rise, and only when a market turns risky.</p>
+            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-tower"/></svg>
+            <h3 class="card-feature__title">Censorship resistant</h3>
+            <p class="card-feature__desc">No company and no protocol-level sequencer stand between you and the market. Nobody can block your order, push it to the back of the line, or take the market offline.</p>
           </div>
           <div class="card-feature">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-lock"/></svg>
@@ -191,6 +176,21 @@
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-nogov"/></svg>
             <h3 class="card-feature__title">No governance</h3>
             <p class="card-feature__desc">No DAO, no token voting, no committees. It runs on math and incentives, not politics.</p>
+          </div>
+          <div class="card-feature">
+            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-gauge"/></svg>
+            <h3 class="card-feature__title">Risk sets itself</h3>
+            <p class="card-feature__desc">No committee or governance sets leverage or fees. Each market measures its own risk and adjusts its margin requirements, insurance threshold and fees automatically.</p>
+          </div>
+          <div class="card-feature">
+            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-umbrella"/></svg>
+            <h3 class="card-feature__title">Isolated insurance</h3>
+            <p class="card-feature__desc">Every market has its own insurance fund to keep winning traders whole in extreme volatility. Independent insurers choose which markets to back, so losses in one market never spill into another.</p>
+          </div>
+          <div class="card-feature">
+            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-mesh"/></svg>
+            <h3 class="card-feature__title">Every role is open</h3>
+            <p class="card-feature__desc">List a market, run a bot, back the insurance fund, build a frontend. Every job the exchange needs is open to anyone, and each one is rewarded.</p>
           </div>
           <div class="card-feature" aria-hidden="true">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-chain"/></svg>
@@ -198,19 +198,14 @@
             <p class="card-feature__desc">Orders are matched on-chain the moment they arrive. There's no hidden matching engine and no sequencer to trust — the contract decides who gets filled, and at what price.</p>
           </div>
           <div class="card-feature" aria-hidden="true">
-            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-shieldcheck"/></svg>
-            <h3 class="card-feature__title">Censorship resistant</h3>
-            <p class="card-feature__desc">No company and no protocol-level sequencer stand between you and the market. Nobody can block your order, push it to the back of the line, or take the market offline.</p>
-          </div>
-          <div class="card-feature" aria-hidden="true">
-            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-nohouse"/></svg>
-            <h3 class="card-feature__title">No house counterparty</h3>
-            <p class="card-feature__desc">Trades match trader against trader on an open order book — no house or market-making pool. The insurance fund only holds liquidated positions until they're sold back into the book.</p>
-          </div>
-          <div class="card-feature" aria-hidden="true">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-listplus"/></svg>
             <h3 class="card-feature__title">Open listing</h3>
             <p class="card-feature__desc">Anyone can list a market, with no cap on how many. Stocks, crypto, commodities, FX — and the long-tail assets major perp exchanges skip. If it has an on-chain price feed, it can trade here.</p>
+          </div>
+          <div class="card-feature" aria-hidden="true">
+            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-tag"/></svg>
+            <h3 class="card-feature__title">Super-low fees</h3>
+            <p class="card-feature__desc">In calm, healthy markets, makers and takers each pay just 0.5 bp — 50 cents on a $10,000 trade. Only taker fees rise, and only when a market turns risky.</p>
           </div>
           <div class="card-feature" aria-hidden="true">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-building"/></svg>
@@ -218,19 +213,9 @@
             <p class="card-feature__desc">Stocks and FX don't trade around the clock. Bazaar markets keep running through closures, and cash-settle cleanly after a merger, split, delisting or other major corporate action.</p>
           </div>
           <div class="card-feature" aria-hidden="true">
-            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-gauge"/></svg>
-            <h3 class="card-feature__title">Risk sets itself</h3>
-            <p class="card-feature__desc">No committee or governance sets leverage or fees. Each market measures its own risk and adjusts its margin requirements, insurance threshold and fees automatically.</p>
-          </div>
-          <div class="card-feature" aria-hidden="true">
-            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-mesh"/></svg>
-            <h3 class="card-feature__title">Every role is open</h3>
-            <p class="card-feature__desc">List a market, run a bot, back the insurance fund, build a frontend. Every job the exchange needs is open to anyone, and each one is rewarded.</p>
-          </div>
-          <div class="card-feature" aria-hidden="true">
-            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-tag"/></svg>
-            <h3 class="card-feature__title">Super-low fees</h3>
-            <p class="card-feature__desc">In calm, healthy markets, makers and takers each pay just 0.5 bp — 50 cents on a $10,000 trade. Only taker fees rise, and only when a market turns risky.</p>
+            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-tower"/></svg>
+            <h3 class="card-feature__title">Censorship resistant</h3>
+            <p class="card-feature__desc">No company and no protocol-level sequencer stand between you and the market. Nobody can block your order, push it to the back of the line, or take the market offline.</p>
           </div>
           <div class="card-feature" aria-hidden="true">
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-lock"/></svg>
@@ -241,6 +226,21 @@
             <svg class="card-feature__icon" aria-hidden="true"><use href="#i-nogov"/></svg>
             <h3 class="card-feature__title">No governance</h3>
             <p class="card-feature__desc">No DAO, no token voting, no committees. It runs on math and incentives, not politics.</p>
+          </div>
+          <div class="card-feature" aria-hidden="true">
+            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-gauge"/></svg>
+            <h3 class="card-feature__title">Risk sets itself</h3>
+            <p class="card-feature__desc">No committee or governance sets leverage or fees. Each market measures its own risk and adjusts its margin requirements, insurance threshold and fees automatically.</p>
+          </div>
+          <div class="card-feature" aria-hidden="true">
+            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-umbrella"/></svg>
+            <h3 class="card-feature__title">Isolated insurance</h3>
+            <p class="card-feature__desc">Every market has its own insurance fund to keep winning traders whole in extreme volatility. Independent insurers choose which markets to back, so losses in one market never spill into another.</p>
+          </div>
+          <div class="card-feature" aria-hidden="true">
+            <svg class="card-feature__icon" aria-hidden="true"><use href="#i-mesh"/></svg>
+            <h3 class="card-feature__title">Every role is open</h3>
+            <p class="card-feature__desc">List a market, run a bot, back the insurance fund, build a frontend. Every job the exchange needs is open to anyone, and each one is rewarded.</p>
           </div>
         </div>
       </div>
